@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "dgSpecHash": "mHD9GWvOEFObJi0EMYEHUZcFlIjGLWAapiokTwHGXDEWQAUQ4tRbXovz5Qv6yFMzhXgvyICOfAZOqw7NZ+wWBg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\fernr\\RiderProjects\\BeatmapParserRefactor\\BeatmapParserRefactor\\BeatmapParserRefactor.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\fernr\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\fernr\\.nuget\\packages\\unity3d.sdk\\2021.1.14.1\\unity3d.sdk.2021.1.14.1.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Unity3D.SDK 2021.1.14.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Unity3D.SDK",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
+}

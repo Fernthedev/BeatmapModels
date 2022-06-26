@@ -1,0 +1,7 @@
+﻿
+public interface IObjectCustomData : ICustomData
+{
+
+
+}
+

@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeatmapParserRefactor", "BeatmapParserRefactor\BeatmapParserRefactor.csproj", "{2408E30D-9B9B-47AB-A03C-EC063C748CDA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2408E30D-9B9B-47AB-A03C-EC063C748CDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2408E30D-9B9B-47AB-A03C-EC063C748CDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2408E30D-9B9B-47AB-A03C-EC063C748CDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2408E30D-9B9B-47AB-A03C-EC063C748CDA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
