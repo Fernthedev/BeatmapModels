@@ -1,46 +1,57 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-public abstract class AbstractCustomData : Dictionary<string, JToken>, ICustomData
+public abstract class AbstractCustomData : Dictionary<string, JToken?>, ICustomData
 {
+    protected AbstractCustomData(IDictionary<string, JToken?> dictionary) : base(dictionary)
+    {
+    }
+
+    protected AbstractCustomData()
+    {
+    }
+
+    protected AbstractCustomData(IEnumerable<KeyValuePair<string, JToken?>> collection) : base(collection)
+    {
+    }
+
     [JsonIgnore]
     public abstract bool isV3 { get; }
 
     public abstract IBeatmapJSON Clone();
 
     [JsonIgnore] 
-    public IDictionary<string, JToken> UnserializedData
+    public IDictionary<string, JToken?> UnserializedData
     {
         get => this;
-        set =>
-            throw new InvalidOperationException(
-                $"Cannot set {nameof(UnserializedData)} to a new value on {nameof(ICustomData)}");
+        set
+        {
+            Clear();
+            // Fallback path for IEnumerable that isn't a non-subclassed Dictionary<TKey,TValue>.
+            foreach (var pair in value)
+            {
+                Add(pair.Key, pair.Value);
+            }
+        }
     }
 
 
-    [CanBeNull]
-    protected JToken Get(string key) => TryGetValue(key, out var val) ? val : null;
+    protected JToken? Get(string key) => TryGetValue(key, out var val) ? val : null;
     
     protected T Get<T>(string key) where T: JToken => TryGetValue(key, out var val) ? (T) val : null;
     
-    [CanBeNull]
-    protected T GetObject<T>(string key) where T : class => TryGetValue(key, out var val) ? val.ToObject<T>() : null as T;
+    protected T? GetObject<T>(string key) where T : class => TryGetValue(key, out var val) ? val.ToObject<T>() : null as T;
     
-    [CanBeNull]
-    protected JToken GetOrAssign<T>(string key, Func<T, JToken> assignDefault, T t = default)
+    protected JToken? GetOrAssign<T>(string key, Func<T?, JToken?> assignDefault, T? t = default)
     {
         if (TryGetValue(key, out var val))
             return val;
         return this[key] = assignDefault(t);
     }
 
-    public ICustomData ShallowClone() => throw new System.NotImplementedException();
+    public abstract ICustomData ShallowClone();
 
-    public ICustomData DeepCopy() => throw new System.NotImplementedException();
+    public abstract ICustomData DeepCopy();
     //
     // public IEnumerator<KeyValuePair<string, JToken>> GetEnumerator() => UnserializedData.GetEnumerator();
     //

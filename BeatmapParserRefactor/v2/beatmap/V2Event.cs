@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 
 public class V2Event : V2CustomBeatmapItem<V2EventCustomData>, IEvent
 {
-    public V2Event(IDictionary<string, JToken> unserializedData) : base(unserializedData)
+    public V2Event(IDictionary<string, JToken>? unserializedData) : base(unserializedData)
     {
     }
 

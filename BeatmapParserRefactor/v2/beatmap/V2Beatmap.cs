@@ -8,10 +8,10 @@ using Newtonsoft.Json.Linq;
 public class V2Beatmap : IBeatmap
 {
     [JsonConstructor]
-    public V2Beatmap(IDictionary<string, JToken> unserializedData, [CanBeNull] IBeatmapCustomData customData, IList<INote> notes, IList<IEvent> events, IList<IObstacle> obstacles)
+    public V2Beatmap(IDictionary<string, JToken>? unserializedData, V2BeatmapCustomData? beatmapCustomData, IList<INote> notes, IList<IEvent> events, IList<IObstacle> obstacles)
     {
-        UnserializedData = unserializedData;
-        CustomData = customData;
+        UnserializedData = unserializedData ?? new Dictionary<string, JToken>();
+        BeatmapCustomData = beatmapCustomData;
         Notes = notes;
         Events = events;
         Obstacles = obstacles;
@@ -23,15 +23,11 @@ public class V2Beatmap : IBeatmap
     [JsonExtensionData]
     public IDictionary<string, JToken> UnserializedData { get; }
 
-    [JsonProperty("_customData")] 
-    [TypeConverter(typeof(V2BeatmapCustomData))]
-    public IBeatmapCustomData CustomData { get; set; }
-    
     [JsonIgnore]
-    public ICustomData UntypedCustomData
+    public ICustomData? UntypedCustomData
     {
-        get => CustomData;
-        set => CustomData = value is null ? null : value as V2BeatmapCustomData ?? new V2BeatmapCustomData(value.UnserializedData);
+        get => BeatmapCustomData;
+        set => BeatmapCustomData = value is null ? null : value as V2BeatmapCustomData ?? new V2BeatmapCustomData(value.UnserializedData);
     }
 
     [JsonProperty("_notes")]
@@ -54,9 +50,13 @@ public class V2Beatmap : IBeatmap
     [JsonProperty("_sliders")]
     public IList<ISlider> Sliders { get; }
     
-    [JsonIgnore]
-    public IBeatmapCustomData BeatmapCustomData { get => UnserializedData["_customData"].ToObject<V2BeatmapCustomData>();
-        set => UnserializedData["_customData"] = JToken.FromObject(value);
+    [JsonProperty("_customData")] 
+    [TypeConverter(typeof(V2BeatmapCustomData))]
+    [JsonConverter(typeof(ConcreteConverter<V2BeatmapCustomData>))]
+    public IBeatmapCustomData? BeatmapCustomData
+    {
+        get;
+        set;
     }
 }
 

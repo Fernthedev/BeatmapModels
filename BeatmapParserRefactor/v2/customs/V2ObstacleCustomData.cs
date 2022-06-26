@@ -4,10 +4,25 @@ using Newtonsoft.Json.Linq;
 
 public class V2ObstacleCustomData : V2ObjectCustomData, IObstacleCustomData
 {
-    public V2ObstacleCustomData(IDictionary<string, JToken> unserializedData) : base(unserializedData)
+
+
+    public override IBeatmapJSON Clone() => ShallowClone();
+    public override ICustomData ShallowClone()
+    {
+        return new V2ObstacleCustomData(this);
+    }
+
+    public override ICustomData DeepCopy()
+    {
+        throw new NotImplementedException();
+    }
+
+    public V2ObstacleCustomData(IDictionary<string, JToken?>? unserializedData) : base(unserializedData)
     {
     }
 
-    public override IBeatmapJSON Clone() => new V2ObstacleCustomData(new Dictionary<string, JToken>(UnserializedData));
+    public V2ObstacleCustomData(IEnumerable<KeyValuePair<string, JToken?>> collection) : base(collection)
+    {
+    }
 }
 

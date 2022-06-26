@@ -3,8 +3,8 @@ using System.ComponentModel;
 using Newtonsoft.Json;
 using UnityEngine;
 
-// TODO: Make this a dynamically grabbed object
-public class ChromaGradient : ICloneable
+// V2 ONLY
+public struct ChromaGradient : ICloneable
 {
     [JsonProperty("_duration")]
     [DefaultValue(0)]

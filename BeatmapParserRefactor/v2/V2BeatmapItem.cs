@@ -11,7 +11,7 @@ public abstract class V2BeatmapItem : IBeatmapItem
     public abstract IBeatmapJSON Clone();
 
 
-    public V2BeatmapItem(IDictionary<string, JToken> unserializedData) => UnserializedData = unserializedData;
+    public V2BeatmapItem(IDictionary<string, JToken>? unserializedData) => UnserializedData = unserializedData ?? new Dictionary<string, JToken>();
     
     [JsonExtensionData]
     public IDictionary<string, JToken> UnserializedData { get; }
@@ -26,25 +26,24 @@ public abstract class V2BeatmapItem : IBeatmapItem
 
 public abstract class V2CustomBeatmapItem<T> : V2BeatmapItem, ICustomBeatmapItem where T: class, ICustomData
 {
-    public V2CustomBeatmapItem(IDictionary<string, JToken> unserializedData) : base(unserializedData) {}
+    public V2CustomBeatmapItem(IDictionary<string, JToken>? unserializedData) : base(unserializedData) {}
 
     // For whatever reason 
-    [CanBeNull]
     [JsonIgnore]
-    public T TypedCustomData 
+    public T? TypedCustomData 
     {
         get => UnserializedData["_customData"]?.ToObject<T>();
         set => SetCustomData(value);
     }
 
     [JsonIgnore]
-    public ICustomData UntypedCustomData
+    public ICustomData? UntypedCustomData
     {
         get => TypedCustomData;
         set => SetCustomData(value);
     }
 
-    protected void SetCustomData([CanBeNull] ICustomData customData)
+    protected void SetCustomData(ICustomData? customData)
     {
         if (customData != null)
         {

@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Linq;
 
 
-public interface ICustomData : IDictionary<string, JToken>, IBeatmapJSON
+public interface ICustomData : IDictionary<string, JToken?>, IBeatmapJSON
 {
     
     ICustomData ShallowClone();

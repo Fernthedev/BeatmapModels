@@ -13,7 +13,7 @@ public interface IBeatmap : IBeatmapCustomJSON
     IList<IWaypoint> Waypoints { get; }
     IList<ISlider> Sliders { get; }
     
-    IBeatmapCustomData BeatmapCustomData { get; set; }
+    IBeatmapCustomData? BeatmapCustomData { get; set; }
 
     // TODO: The rest
 }

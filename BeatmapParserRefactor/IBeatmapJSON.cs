@@ -12,15 +12,14 @@ public interface IBeatmapJSON
 
     IBeatmapJSON Clone();
 
-    [JsonExtensionData] IDictionary<string, JToken> UnserializedData { get; }
+    [JsonExtensionData] IDictionary<string, JToken?> UnserializedData { get; }
 }
 
 
 public interface IBeatmapCustomJSON : IBeatmapJSON
 {
-    [CanBeNull]
     [JsonIgnore]
-    ICustomData UntypedCustomData { get; set; }
+    ICustomData? UntypedCustomData { get; set; }
 }
 
 public interface IBeatmapItem : IBeatmapJSON
