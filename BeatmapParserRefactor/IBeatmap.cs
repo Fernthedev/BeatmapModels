@@ -25,7 +25,7 @@ public interface INote : IBeatmapObject
 
     public int CutDirection { get; set; }
     public int LineLayer { get; set; }
-    public INoteCustomData CustomData { get; set; }
+    public INoteCustomData? CustomData { get; set; }
 }
 
 public interface IObstacle : IBeatmapObject
@@ -36,7 +36,7 @@ public interface IObstacle : IBeatmapObject
     
     public int Width { get; set; }
 
-    public IObstacleCustomData CustomData { get; set; }
+    public IObstacleCustomData? CustomData { get; set; }
 }
 
 public interface IEvent : ICustomBeatmapItem
@@ -48,7 +48,7 @@ public interface IEvent : ICustomBeatmapItem
 
     public float? FloatValue { get; set; }
     
-    public IEventCustomData CustomData { get; set; }
+    public IEventCustomData? CustomData { get; set; }
 }
 
 public interface ISlider : ICustomBeatmapItem
@@ -73,12 +73,12 @@ public interface IWaypoint : IBeatmapObject
     public int LineLayer { get; set; }
     public int OffsetDirection { get; set; }
     
-    public IObjectCustomData CustomData { get; set; }
+    public IObjectCustomData? CustomData { get; set; }
 }
 
 public interface ICustomEvent : ICustomBeatmapItem
 {
     public string Type { get; set; }
     
-    public ICustomEventCustomData CustomData { get; set; }
+    public ICustomEventCustomData? CustomData { get; set; }
 }

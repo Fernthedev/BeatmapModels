@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -12,7 +13,7 @@ public interface IBeatmapJSON
 
     IBeatmapJSON Clone();
 
-    [JsonExtensionData] IDictionary<string, JToken?> UnserializedData { get; }
+    [JsonExtensionData] IDictionary<string, JToken> UnserializedData { get; }
 }
 
 

@@ -4,11 +4,11 @@ using Newtonsoft.Json.Linq;
 
 public class V2Slider : V2BeatmapObject<V2SliderCustomData>, ISlider
 {
-    public V2Slider(IDictionary<string, JToken> unserializedData) : base(unserializedData)
+    public V2Slider(IDictionary<string, JToken>? unserializedData, float time, V2SliderCustomData? typedCustomData) : base(unserializedData, time, typedCustomData)
     {
     }
 
-    public override IBeatmapJSON Clone() => new V2Slider(new Dictionary<string, JToken>(UnserializedData));
+    public override IBeatmapJSON Clone() => new V2Slider(new Dictionary<string, JToken>(UnserializedData), Time, new V2SliderCustomData(TypedCustomData));
 
     public int Type
     {
@@ -98,6 +98,11 @@ public class V2Slider : V2BeatmapObject<V2SliderCustomData>, ISlider
     {
         get => UnserializedData["_sliderMidAnchorMode"].ToObject<int>();
         set => UnserializedData["_sliderMidAnchorMode"] = value;
+    }
+
+    protected override V2SliderCustomData Internal_CustomDataWrap(ICustomData data)
+    {
+        return new V2SliderCustomData(data);
     }
 }
 

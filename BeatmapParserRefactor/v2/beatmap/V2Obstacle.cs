@@ -4,10 +4,11 @@ using Newtonsoft.Json.Linq;
 
 public class V2Obstacle : V2BeatmapObject<V2ObstacleCustomData>, IObstacle
 {
-    public V2Obstacle(IDictionary<string, JToken> unserializedData) : base(unserializedData)
+    public V2Obstacle(IDictionary<string, JToken>? unserializedData, float time, V2ObstacleCustomData? typedCustomData) : base(unserializedData, time, typedCustomData)
     {
     }
-    public override IBeatmapJSON Clone() => new V2Obstacle(new Dictionary<string, JToken>(UnserializedData));
+
+    public override IBeatmapJSON Clone() => new V2Obstacle(new Dictionary<string, JToken>(UnserializedData), Time, new V2ObstacleCustomData(TypedCustomData));
 
     public int Type
     {
@@ -28,6 +29,10 @@ public class V2Obstacle : V2BeatmapObject<V2ObstacleCustomData>, IObstacle
         set => UnserializedData["_width"] = JToken.FromObject(value);
     }
 
-    public IObstacleCustomData CustomData { get => TypedCustomData; set => SetCustomData(value); }
+    public IObstacleCustomData? CustomData { get => TypedCustomData; set => CustomDataWrap(value); }
+    protected override V2ObstacleCustomData Internal_CustomDataWrap(ICustomData data)
+    {
+        return new V2ObstacleCustomData(data);
+    }
 }
 

@@ -21,7 +21,7 @@ public abstract class AbstractCustomData : Dictionary<string, JToken?>, ICustomD
     public abstract IBeatmapJSON Clone();
 
     [JsonIgnore] 
-    public IDictionary<string, JToken?> UnserializedData
+    public IDictionary<string, JToken> UnserializedData
     {
         get => this;
         set
@@ -35,10 +35,16 @@ public abstract class AbstractCustomData : Dictionary<string, JToken?>, ICustomD
         }
     }
 
+    // Sadly can't override :(
+    public new JToken? this[string key]
+    {
+        get => Get(key);
+        set => base[key] = value;
+    }
 
     protected JToken? Get(string key) => TryGetValue(key, out var val) ? val : null;
     
-    protected T Get<T>(string key) where T: JToken => TryGetValue(key, out var val) ? (T) val : null;
+    protected T? Get<T>(string key) where T: JToken => TryGetValue(key, out var val) ? (T) val! : null;
     
     protected T? GetObject<T>(string key) where T : class => TryGetValue(key, out var val) ? val.ToObject<T>() : null as T;
     

@@ -1,33 +1,46 @@
 ﻿
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 public class V2Event : V2CustomBeatmapItem<V2EventCustomData>, IEvent
 {
-    public V2Event(IDictionary<string, JToken>? unserializedData) : base(unserializedData)
+    public V2Event(IDictionary<string, JToken>? unserializedData, float time, V2EventCustomData? typedCustomData, int type, int value, float? floatValue) : base(unserializedData, time, typedCustomData)
     {
+        Type = type;
+        Value = value;
+        FloatValue = floatValue;
     }
 
-    public override IBeatmapJSON Clone() => new V2Event(new Dictionary<string, JToken>(UnserializedData));
+    public override IBeatmapJSON Clone() => new V2Event(new Dictionary<string, JToken>(UnserializedData), Time, new V2EventCustomData(TypedCustomData), Type, Value, FloatValue);
 
+    [JsonProperty("_type")]
     public int Type
     {
-        get => UnserializedData["_type"].ToObject<int>();
-        set => UnserializedData["_type"] = value;
+        get;
+        set;
     }
 
+    [JsonProperty("_value")]
     public int Value
     {
-        get => UnserializedData["_value"].ToObject<int>();
-        set => UnserializedData["_value"] = value;
+        get;
+        set;
     }
 
+    [JsonProperty("_floatValue")]
     public float? FloatValue
     {
-        get => UnserializedData["_floatValue"].ToObject<float>();
-        set => UnserializedData["_floatValue"] = value;
+        get;
+        set;
     }
-
-    public IEventCustomData CustomData { get => TypedCustomData; set => SetCustomData(value); }
+    
+    [JsonIgnore]
+    public IEventCustomData? CustomData { get => TypedCustomData; set => CustomDataWrap(value); }
+    
+    protected override V2EventCustomData Internal_CustomDataWrap(ICustomData data)
+    {
+        return new V2EventCustomData(data);
+    }
 }
 

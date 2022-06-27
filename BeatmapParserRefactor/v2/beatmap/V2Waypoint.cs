@@ -4,10 +4,11 @@ using Newtonsoft.Json.Linq;
 
 public class V2Waypoint : V2BeatmapObject<V2WaypointCustomData>, IWaypoint
 {
-    public V2Waypoint(IDictionary<string, JToken> unserializedData) : base(unserializedData)
+    public V2Waypoint(IDictionary<string, JToken>? unserializedData, float time, V2WaypointCustomData? typedCustomData) : base(unserializedData, time, typedCustomData)
     {
     }
-    public override IBeatmapJSON Clone() => new V2Waypoint(new Dictionary<string, JToken>(UnserializedData));
+
+    public override IBeatmapJSON Clone() => new V2Waypoint(new Dictionary<string, JToken>(UnserializedData), Time, new V2WaypointCustomData(TypedCustomData));
 
 
     public int LineLayer
@@ -20,6 +21,10 @@ public class V2Waypoint : V2BeatmapObject<V2WaypointCustomData>, IWaypoint
         set => UnserializedData["_offsetDirection"] = value; 
     }
 
-    public IObjectCustomData CustomData { get => TypedCustomData; set => SetCustomData(value); }
+    public IObjectCustomData? CustomData { get => TypedCustomData; set => CustomDataWrap(value); }
+    protected override V2WaypointCustomData Internal_CustomDataWrap(ICustomData data)
+    {
+        return new V2WaypointCustomData(data);
+    }
 }
 
