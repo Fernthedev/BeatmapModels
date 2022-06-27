@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 public class V2EventCustomData : AbstractV2CustomData, IEventCustomData
@@ -13,7 +12,10 @@ public class V2EventCustomData : AbstractV2CustomData, IEventCustomData
     }
 
 
-    public override IBeatmapJSON Clone() => ShallowClone();
+    public override IBeatmapJSON Clone()
+    {
+        return ShallowClone();
+    }
 
     public override ICustomData ShallowClone()
     {
@@ -25,11 +27,13 @@ public class V2EventCustomData : AbstractV2CustomData, IEventCustomData
         throw new NotImplementedException();
     }
 
-    
+
     public Color? Color
     {
         get => this["_color"]?.AsColor();
-        set => this["_color"] = value == null ? JValue.CreateNull() : new JArray(value.Value.r, value.Value.g, value.Value.b, value.Value.a);
+        set => this["_color"] = value == null
+            ? JValue.CreateNull()
+            : new JArray(value.Value.r, value.Value.g, value.Value.b, value.Value.a);
     }
 
     public IReadOnlySet<int>? LightIDs
@@ -44,4 +48,3 @@ public class V2EventCustomData : AbstractV2CustomData, IEventCustomData
         set => this["_lightGradient"] = value == null ? JValue.CreateNull() : JObject.FromObject(value);
     }
 }
-

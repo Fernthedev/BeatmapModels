@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -31,7 +30,7 @@ public struct ChromaGradient : ICloneable
         EasingType = easingType;
     }
 
-    public ChromaGradient Clone() => new ChromaGradient(StartColor, EndColor, Duration, EasingType);
+    public ChromaGradient Clone() => new(StartColor, EndColor, Duration, EasingType);
 
     object ICloneable.Clone() => Clone();
 }

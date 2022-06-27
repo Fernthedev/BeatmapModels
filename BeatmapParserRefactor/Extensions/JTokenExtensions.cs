@@ -1,9 +1,6 @@
-﻿using System;
-using System.Linq;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
-
 
 [PublicAPI]
 public static class JTokenExtensions

@@ -1,7 +1,3 @@
-﻿
-public interface IObstacleCustomData : IObjectCustomData
+﻿public interface IObstacleCustomData : IObjectCustomData
 {
-
-
 }
-

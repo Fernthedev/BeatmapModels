@@ -1,103 +1,138 @@
-﻿
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 public class V2Slider : V2BeatmapObject<V2SliderCustomData>, ISlider
 {
-    public V2Slider(IDictionary<string, JToken>? unserializedData, float time, V2SliderCustomData? typedCustomData) : base(unserializedData, time, typedCustomData)
+    public V2Slider(IDictionary<string, JToken>? unserializedData, float time, V2SliderCustomData? typedCustomData, int type, int cutDirection, int lineLayer, int colorType, float headTime, int headLineIndex, int headLineLayer, float headControlPointLengthMultiplier, int headCutDirection, float tailTime, int tailLineIndex, int tailLineLayer, float tailControlPointLengthMultiplier, int tailCutDirection, int sliderMidAnchorMode) : base(unserializedData, time, typedCustomData)
     {
+        Type = type;
+        CutDirection = cutDirection;
+        LineLayer = lineLayer;
+        ColorType = colorType;
+        HeadTime = headTime;
+        HeadLineIndex = headLineIndex;
+        HeadLineLayer = headLineLayer;
+        HeadControlPointLengthMultiplier = headControlPointLengthMultiplier;
+        HeadCutDirection = headCutDirection;
+        TailTime = tailTime;
+        TailLineIndex = tailLineIndex;
+        TailLineLayer = tailLineLayer;
+        TailControlPointLengthMultiplier = tailControlPointLengthMultiplier;
+        TailCutDirection = tailCutDirection;
+        SliderMidAnchorMode = sliderMidAnchorMode;
     }
 
-    public override IBeatmapJSON Clone() => new V2Slider(new Dictionary<string, JToken>(UnserializedData), Time, new V2SliderCustomData(TypedCustomData));
-
+    [JsonProperty("_type")]
     public int Type
     {
-        get => UnserializedData["_type"].ToObject<int>();
-        set => UnserializedData["_type"] = value;
+        get;
+        set;
     }
 
+    [JsonProperty("_cutDirection")]
     public int CutDirection
     {
-        get => UnserializedData["_cutDirection"].ToObject<int>();
-        set => UnserializedData["_cutDirection"] = value;
+        get;
+        set;
     }
 
+    [JsonProperty("_lineLayer")]
     public int LineLayer
     {
-        get => UnserializedData["_lineLayer"].ToObject<int>();
-        set => UnserializedData["_lineLayer"] = value;
+        get;
+        set;
     }
 
+    public override IBeatmapJSON Clone()
+    {
+        return new V2Slider(new Dictionary<string, JToken>(UnserializedData), Time,
+            new V2SliderCustomData(TypedCustomData), Type, CutDirection, LineLayer, ColorType, HeadTime, HeadLineIndex,
+            HeadLineLayer, HeadControlPointLengthMultiplier, HeadCutDirection, TailTime, TailLineIndex, TailLineLayer,
+            TailControlPointLengthMultiplier, TailCutDirection, SliderMidAnchorMode);
+    }
+
+    [JsonProperty("_colorType")]
     public int ColorType
     {
-        get => UnserializedData["_colorType"].ToObject<int>();
-        set => UnserializedData["_colorType"] = value;
+        get;
+        set;
     }
 
+    [JsonProperty("_headTime")]
     public float HeadTime
     {
-        get => UnserializedData["_headTime"].ToObject<int>();
-        set => UnserializedData["_headTime"] = value;
+        get;
+        set;
     }
 
+    [JsonProperty("_headLineIndex")]
     public int HeadLineIndex
     {
-        get => UnserializedData["_headLineIndex"].ToObject<int>();
-        set => UnserializedData["_headLineIndex"] = value;
+        get;
+        set;
     }
 
+    [JsonProperty("_headLineLayer")]
     public int HeadLineLayer
     {
-        get => UnserializedData["_headLineLayer"].ToObject<int>();
-        set => UnserializedData["_headLineLayer"] = value;
+        get;
+        set;
     }
 
+    [JsonProperty("_headControlPointLengthMultiplier")]
     public float HeadControlPointLengthMultiplier
     {
-        get => UnserializedData["_headControlPointLengthMultiplier"].ToObject<int>();
-        set => UnserializedData["_headControlPointLengthMultiplier"] = value;
+        get;
+        set;
     }
 
+    [JsonProperty("_headCutDirection")]
     public int HeadCutDirection
     {
-        get => UnserializedData["_headCutDirection"].ToObject<int>();
-        set => UnserializedData["_headCutDirection"] = value;
+        get;
+        set;
     }
 
+    [JsonProperty("_tailTime")]
     public float TailTime
     {
-        get => UnserializedData["_tailTime"].ToObject<int>();
-        set => UnserializedData["_tailTime"] = value;
+        get;
+        set;
     }
 
+    [JsonProperty("_tailLineIndex")]
     public int TailLineIndex
     {
-        get => UnserializedData["_tailLineIndex"].ToObject<int>();
-        set => UnserializedData["_tailLineIndex"] = value;
+        get;
+        set;
     }
 
+    [JsonProperty("_tailLineLayer")]
     public int TailLineLayer
     {
-        get => UnserializedData["_tailLineLayer"].ToObject<int>();
-        set => UnserializedData["_tailLineLayer"] = value;
+        get;
+        set;
     }
 
+    [JsonProperty("_tailControlPointLengthMultiplier")]
     public float TailControlPointLengthMultiplier
     {
-        get => UnserializedData["_tailControlPointLengthMultiplier"].ToObject<int>();
-        set => UnserializedData["_tailControlPointLengthMultiplier"] = value;
+        get;
+        set;
     }
 
+    [JsonProperty("_tailCutDirection")]
     public int TailCutDirection
     {
-        get => UnserializedData["_tailCutDirection"].ToObject<int>();
-        set => UnserializedData["_tailCutDirection"] = value;
+        get;
+        set;
     }
 
+    [JsonProperty("_sliderMidAnchorMode")]
     public int SliderMidAnchorMode
     {
-        get => UnserializedData["_sliderMidAnchorMode"].ToObject<int>();
-        set => UnserializedData["_sliderMidAnchorMode"] = value;
+        get;
+        set;
     }
 
     protected override V2SliderCustomData Internal_CustomDataWrap(ICustomData data)
@@ -105,4 +140,3 @@ public class V2Slider : V2BeatmapObject<V2SliderCustomData>, ISlider
         return new V2SliderCustomData(data);
     }
 }
-

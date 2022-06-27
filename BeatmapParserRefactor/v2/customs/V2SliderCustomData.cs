@@ -1,6 +1,4 @@
-﻿
-using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 
 public class V2SliderCustomData : V2ObjectCustomData, ICustomData
 {
@@ -12,7 +10,11 @@ public class V2SliderCustomData : V2ObjectCustomData, ICustomData
     {
     }
 
-    public override IBeatmapJSON Clone() => ShallowClone();
+    public override IBeatmapJSON Clone()
+    {
+        return ShallowClone();
+    }
+
     public override ICustomData ShallowClone()
     {
         return new V2SliderCustomData(this);
@@ -23,4 +25,3 @@ public class V2SliderCustomData : V2ObjectCustomData, ICustomData
         throw new NotImplementedException();
     }
 }
-

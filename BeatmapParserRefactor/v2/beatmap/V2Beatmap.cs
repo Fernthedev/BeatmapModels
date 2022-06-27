@@ -1,14 +1,12 @@
-﻿
-using System.Collections.Generic;
-using System.ComponentModel;
-using JetBrains.Annotations;
+﻿using System.ComponentModel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 public class V2Beatmap : IBeatmap
 {
     [JsonConstructor]
-    public V2Beatmap(IDictionary<string, JToken>? unserializedData, V2BeatmapCustomData? beatmapCustomData, IList<INote> notes, IList<IEvent> events, IList<IObstacle> obstacles)
+    public V2Beatmap(IDictionary<string, JToken>? unserializedData, V2BeatmapCustomData? beatmapCustomData,
+        IList<INote> notes, IList<IEvent> events, IList<IObstacle> obstacles)
     {
         UnserializedData = unserializedData ?? new Dictionary<string, JToken>();
         BeatmapCustomData = beatmapCustomData;
@@ -18,7 +16,13 @@ public class V2Beatmap : IBeatmap
     }
 
     public bool isV3 => false;
-    public IBeatmapJSON Clone() => new V2Beatmap(new Dictionary<string, JToken>(UnserializedData), UntypedCustomData?.Clone() as V2BeatmapCustomData, new List<INote>(Notes), new List<IEvent>(Events), new List<IObstacle>(Obstacles));
+
+    public IBeatmapJSON Clone()
+    {
+        return new V2Beatmap(new Dictionary<string, JToken>(UnserializedData),
+            UntypedCustomData?.Clone() as V2BeatmapCustomData, new List<INote>(Notes), new List<IEvent>(Events),
+            new List<IObstacle>(Obstacles));
+    }
 
     [JsonExtensionData]
     public IDictionary<string, JToken> UnserializedData { get; }
@@ -27,7 +31,9 @@ public class V2Beatmap : IBeatmap
     public ICustomData? UntypedCustomData
     {
         get => BeatmapCustomData;
-        set => BeatmapCustomData = value is null ? null : value as V2BeatmapCustomData ?? new V2BeatmapCustomData(value.UnserializedData);
+        set => BeatmapCustomData = value is null
+            ? null
+            : value as V2BeatmapCustomData ?? new V2BeatmapCustomData(value.UnserializedData);
     }
 
     [JsonProperty("_notes")]
@@ -45,18 +51,13 @@ public class V2Beatmap : IBeatmap
     [JsonConverter(typeof(V2WaypointListConverter))]
     [JsonProperty("_waypoints")]
     public IList<IWaypoint> Waypoints { get; }
-    
+
     [JsonConverter(typeof(V2SliderListConverter))]
     [JsonProperty("_sliders")]
     public IList<ISlider> Sliders { get; }
-    
-    [JsonProperty("_customData")] 
+
+    [JsonProperty("_customData")]
     [TypeConverter(typeof(V2BeatmapCustomData))]
     [JsonConverter(typeof(ConcreteConverter<V2BeatmapCustomData>))]
-    public IBeatmapCustomData? BeatmapCustomData
-    {
-        get;
-        set;
-    }
+    public IBeatmapCustomData? BeatmapCustomData { get; set; }
 }
-

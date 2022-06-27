@@ -1,6 +1,4 @@
-﻿
-using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 
 public abstract class V2ObjectCustomData : AbstractV2CustomData, IObjectCustomData
 {
@@ -12,4 +10,3 @@ public abstract class V2ObjectCustomData : AbstractV2CustomData, IObjectCustomDa
     {
     }
 }
-

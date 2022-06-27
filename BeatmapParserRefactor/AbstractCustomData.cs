@@ -15,12 +15,11 @@ public abstract class AbstractCustomData : Dictionary<string, JToken?>, ICustomD
     {
     }
 
-    [JsonIgnore]
-    public abstract bool isV3 { get; }
+    [JsonIgnore] public abstract bool isV3 { get; }
 
     public abstract IBeatmapJSON Clone();
 
-    [JsonIgnore] 
+    [JsonIgnore]
     public IDictionary<string, JToken> UnserializedData
     {
         get => this;
@@ -28,10 +27,7 @@ public abstract class AbstractCustomData : Dictionary<string, JToken?>, ICustomD
         {
             Clear();
             // Fallback path for IEnumerable that isn't a non-subclassed Dictionary<TKey,TValue>.
-            foreach (var pair in value)
-            {
-                Add(pair.Key, pair.Value);
-            }
+            foreach (var pair in value) Add(pair.Key, pair.Value);
         }
     }
 
@@ -42,22 +38,31 @@ public abstract class AbstractCustomData : Dictionary<string, JToken?>, ICustomD
         set => base[key] = value;
     }
 
-    protected JToken? Get(string key) => TryGetValue(key, out var val) ? val : null;
-    
-    protected T? Get<T>(string key) where T: JToken => TryGetValue(key, out var val) ? (T) val! : null;
-    
-    protected T? GetObject<T>(string key) where T : class => TryGetValue(key, out var val) ? val.ToObject<T>() : null as T;
-    
+    public abstract ICustomData ShallowClone();
+
+    public abstract ICustomData DeepCopy();
+
+    protected JToken? Get(string key)
+    {
+        return TryGetValue(key, out var val) ? val : null;
+    }
+
+    protected T? Get<T>(string key) where T : JToken
+    {
+        return TryGetValue(key, out var val) ? (T)val! : null;
+    }
+
+    protected T? GetObject<T>(string key) where T : class
+    {
+        return TryGetValue(key, out var val) ? val.ToObject<T>() : null;
+    }
+
     protected JToken? GetOrAssign<T>(string key, Func<T?, JToken?> assignDefault, T? t = default)
     {
         if (TryGetValue(key, out var val))
             return val;
         return this[key] = assignDefault(t);
     }
-
-    public abstract ICustomData ShallowClone();
-
-    public abstract ICustomData DeepCopy();
     //
     // public IEnumerator<KeyValuePair<string, JToken>> GetEnumerator() => UnserializedData.GetEnumerator();
     //

@@ -1,26 +1,22 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
-using JetBrains.Annotations;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 /// <summary>
-/// An item that is stored in a beatmap JSON
+///     An item that is stored in a beatmap JSON
 /// </summary>
 public interface IBeatmapJSON
 {
     [JsonIgnore] bool isV3 { get; }
 
-    IBeatmapJSON Clone();
-
     [JsonExtensionData] IDictionary<string, JToken> UnserializedData { get; }
+
+    IBeatmapJSON Clone();
 }
 
 
 public interface IBeatmapCustomJSON : IBeatmapJSON
 {
-    [JsonIgnore]
-    ICustomData? UntypedCustomData { get; set; }
+    [JsonIgnore] ICustomData? UntypedCustomData { get; set; }
 }
 
 public interface IBeatmapItem : IBeatmapJSON

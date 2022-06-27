@@ -11,7 +11,6 @@ using var jsonReader = new JsonTextReader(streamReader);
 var serializer = JsonSerializer.CreateDefault();
 
 
-
 IBeatmap? beatmap = serializer.Deserialize<V2Beatmap>(jsonReader);
 Debug.Assert(beatmap != null, nameof(beatmap) + " != null");
 

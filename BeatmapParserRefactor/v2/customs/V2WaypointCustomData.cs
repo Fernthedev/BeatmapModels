@@ -1,6 +1,4 @@
-﻿
-using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 
 public class V2WaypointCustomData : V2ObjectCustomData
 {
@@ -12,7 +10,11 @@ public class V2WaypointCustomData : V2ObjectCustomData
     {
     }
 
-    public override IBeatmapJSON Clone() => ShallowClone();
+    public override IBeatmapJSON Clone()
+    {
+        return ShallowClone();
+    }
+
     public override ICustomData ShallowClone()
     {
         return new V2WaypointCustomData(this);
@@ -23,4 +25,3 @@ public class V2WaypointCustomData : V2ObjectCustomData
         throw new NotImplementedException();
     }
 }
-

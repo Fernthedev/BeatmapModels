@@ -1,7 +1,3 @@
-﻿
-public interface INoteCustomData : IObjectCustomData
+﻿public interface INoteCustomData : IObjectCustomData
 {
-
-
 }
-

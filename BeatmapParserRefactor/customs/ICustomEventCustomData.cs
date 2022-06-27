@@ -1,12 +1,3 @@
-﻿
-using UnityEngine;
-
-public interface ICustomEventCustomData : ICustomData
+﻿public interface ICustomEventCustomData : ICustomData
 {
-    
-
-    
-    
-
 }
-
