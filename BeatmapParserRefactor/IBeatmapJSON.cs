@@ -19,7 +19,7 @@ public interface IBeatmapCustomJSON : IBeatmapJSON
     [JsonIgnore] ICustomData? UntypedCustomData { get; set; }
 }
 
-public interface IBeatmapItem : IBeatmapJSON
+public interface IBeatmapItem : IBeatmapJSON, IComparable<IBeatmapItem>
 {
     float Time { get; set; }
 }

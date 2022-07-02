@@ -16,6 +16,11 @@ public abstract class V2BeatmapItem : IBeatmapItem
     [JsonExtensionData] public IDictionary<string, JToken> UnserializedData { get; }
 
     [JsonProperty("_time")] public float Time { get; set; }
+
+    public int CompareTo(IBeatmapItem? other)
+    {
+        return other == null ? 1 : Time.CompareTo(other.Time);
+    }
 }
 
 public abstract class V2CustomBeatmapItem<T> : V2BeatmapItem, ICustomBeatmapItem where T : class, ICustomData
