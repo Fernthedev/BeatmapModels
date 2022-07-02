@@ -7,12 +7,12 @@ public class V2ListConverter<I, T> : JsonConverter<IList<I>>
 {
     public override bool CanWrite => false;
 
-    public override void WriteJson(JsonWriter writer, IList<I> value, JsonSerializer serializer)
+    public override void WriteJson(JsonWriter writer, IList<I>? value, JsonSerializer serializer)
     {
         throw new NotImplementedException();
     }
 
-    public override IList<I> ReadJson(JsonReader reader, Type objectType, IList<I> existingValue, bool hasExistingValue,
+    public override IList<I>? ReadJson(JsonReader reader, Type objectType, IList<I>? existingValue, bool hasExistingValue,
         JsonSerializer serializer)
     {
         return serializer.Deserialize<List<T>>(reader)?.Cast<I>().ToList();

@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 
 public class V2Note : V2BeatmapObject<V2NoteCustomData>, INote
 {
-    public V2Note(IDictionary<string, JToken>? unserializedData, float time, V2NoteCustomData? typedCustomData, int type, int cutDirection, int lineLayer) : base(unserializedData, time, typedCustomData)
+    public V2Note(IDictionary<string, JToken>? unserializedData, float time, V2NoteCustomData? typedCustomData, int lineIndex, int type, int cutDirection, int lineLayer) : base(unserializedData, time, typedCustomData, lineIndex)
     {
         Type = type;
         CutDirection = cutDirection;
@@ -13,7 +13,7 @@ public class V2Note : V2BeatmapObject<V2NoteCustomData>, INote
     public override IBeatmapJSON Clone()
     {
         return new V2Note(new Dictionary<string, JToken>(UnserializedData), Time,
-            new V2NoteCustomData(TypedCustomData), Type, CutDirection, LineLayer);
+            new V2NoteCustomData(TypedCustomData), LineIndex, Type, CutDirection, LineLayer);
     }
 
     [JsonProperty("_type")]

@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 
 public class V2Waypoint : V2BeatmapObject<V2WaypointCustomData>, IWaypoint
 {
-    public V2Waypoint(IDictionary<string, JToken>? unserializedData, float time, V2WaypointCustomData? typedCustomData, int lineLayer, int offsetDirection) : base(unserializedData, time, typedCustomData)
+    public V2Waypoint(IDictionary<string, JToken>? unserializedData, float time, V2WaypointCustomData? typedCustomData, int lineIndex, int lineLayer, int offsetDirection) : base(unserializedData, time, typedCustomData, lineIndex)
     {
         LineLayer = lineLayer;
         OffsetDirection = offsetDirection;
@@ -12,7 +12,7 @@ public class V2Waypoint : V2BeatmapObject<V2WaypointCustomData>, IWaypoint
     public override IBeatmapJSON Clone()
     {
         return new V2Waypoint(new Dictionary<string, JToken>(UnserializedData), Time,
-            new V2WaypointCustomData(TypedCustomData), LineLayer, OffsetDirection);
+            new V2WaypointCustomData(TypedCustomData), LineIndex, LineLayer, OffsetDirection);
     }
 
 

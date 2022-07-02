@@ -5,23 +5,27 @@ using Newtonsoft.Json.Linq;
 public class V2Beatmap : IBeatmap
 {
     [JsonConstructor]
-    public V2Beatmap(IDictionary<string, JToken>? unserializedData, V2BeatmapCustomData? beatmapCustomData,
-        IList<INote> notes, IList<IEvent> events, IList<IObstacle> obstacles)
+    public V2Beatmap(IDictionary<string, JToken>? unserializedData, IList<INote> notes, IList<IEvent> events,
+        IList<IObstacle> obstacles, IList<IWaypoint> waypoints, IList<ISlider> sliders,
+        IBeatmapCustomData? beatmapCustomData)
     {
         UnserializedData = unserializedData ?? new Dictionary<string, JToken>();
-        BeatmapCustomData = beatmapCustomData;
         Notes = notes;
         Events = events;
         Obstacles = obstacles;
+        Waypoints = waypoints;
+        Sliders = sliders;
+        BeatmapCustomData = beatmapCustomData;
     }
 
     public bool isV3 => false;
 
     public IBeatmapJSON Clone()
     {
-        return new V2Beatmap(new Dictionary<string, JToken>(UnserializedData),
-            UntypedCustomData?.Clone() as V2BeatmapCustomData, new List<INote>(Notes), new List<IEvent>(Events),
-            new List<IObstacle>(Obstacles));
+        return new V2Beatmap(new Dictionary<string, JToken>(UnserializedData), new List<INote>(Notes),
+            new List<IEvent>(Events),
+            new List<IObstacle>(Obstacles), new List<IWaypoint>(Waypoints), new List<ISlider>(Sliders),
+            UntypedCustomData?.Clone() as V2BeatmapCustomData);
     }
 
     [JsonExtensionData]

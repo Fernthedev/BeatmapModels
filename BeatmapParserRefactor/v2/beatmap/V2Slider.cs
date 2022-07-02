@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 
 public class V2Slider : V2BeatmapObject<V2SliderCustomData>, ISlider
 {
-    public V2Slider(IDictionary<string, JToken>? unserializedData, float time, V2SliderCustomData? typedCustomData, int type, int cutDirection, int lineLayer, int colorType, float headTime, int headLineIndex, int headLineLayer, float headControlPointLengthMultiplier, int headCutDirection, float tailTime, int tailLineIndex, int tailLineLayer, float tailControlPointLengthMultiplier, int tailCutDirection, int sliderMidAnchorMode) : base(unserializedData, time, typedCustomData)
+    public V2Slider(IDictionary<string, JToken>? unserializedData, float time, V2SliderCustomData? typedCustomData, int lineIndex, int type, int cutDirection, int lineLayer, int colorType, float headTime, int headLineIndex, int headLineLayer, float headControlPointLengthMultiplier, int headCutDirection, float tailTime, int tailLineIndex, int tailLineLayer, float tailControlPointLengthMultiplier, int tailCutDirection, int sliderMidAnchorMode) : base(unserializedData, time, typedCustomData, lineIndex)
     {
         Type = type;
         CutDirection = cutDirection;
@@ -46,7 +46,8 @@ public class V2Slider : V2BeatmapObject<V2SliderCustomData>, ISlider
     public override IBeatmapJSON Clone()
     {
         return new V2Slider(new Dictionary<string, JToken>(UnserializedData), Time,
-            new V2SliderCustomData(TypedCustomData), Type, CutDirection, LineLayer, ColorType, HeadTime, HeadLineIndex,
+            new V2SliderCustomData(TypedCustomData), LineIndex, Type, CutDirection, LineLayer, ColorType, HeadTime,
+            HeadLineIndex,
             HeadLineLayer, HeadControlPointLengthMultiplier, HeadCutDirection, TailTime, TailLineIndex, TailLineLayer,
             TailControlPointLengthMultiplier, TailCutDirection, SliderMidAnchorMode);
     }
