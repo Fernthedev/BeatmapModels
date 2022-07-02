@@ -33,9 +33,11 @@ public static class Tests
             $"Deserialized beatmap and serialized beatmap are identical 🎉. Took {stopwatch.ElapsedMilliseconds}ms");
     }
 
+    private static bool IsNumber(JToken token) => token.Type is JTokenType.Float or JTokenType.Integer;
+
     private static bool CheckObject(JToken jToken1, JToken jToken2)
     {
-        if (jToken1.Type != jToken2.Type) return false;
+        if (jToken1.Type != jToken2.Type && IsNumber(jToken1) != IsNumber(jToken2)) return false;
 
         if (jToken1.Type == JTokenType.Array)
         {
@@ -44,14 +46,26 @@ public static class Tests
 
             if (array1.Count != array2.Count) return false;
 
-            var set1 = array1.ToImmutableHashSet();
-            var set2 = array2.ToImmutableHashSet();
+            for (var i = 0; i < array1.Count; i++)
+            {
+                var e1 = array1[i];
+                var e2 = array2[i];
+            
+                if (!CheckObject(e1, e2)) return false;
+            }
 
-            return set1.Count == set2.Count;
-            // Since ordering doesn't work, we don't extensively check arrays ugh
-            // &&
-            // // This is SLOW
-            // set1.All(i => set2.Any(j => CheckObject(i, j)));
+            return true;
+
+        }
+
+        // Float subtlety 
+        if (jToken1.Type == JTokenType.Float || jToken2.Type == JTokenType.Float)
+        {
+            var d1 = jToken1.ToObject<decimal>();
+            var d2 = jToken2.ToObject<decimal>();
+            
+            
+            return d1.Equals(d2) || Math.Abs(d1 - d2) < (decimal)0.0001;
         }
 
         if (jToken1.Type != JTokenType.Object)
