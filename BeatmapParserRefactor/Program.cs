@@ -41,3 +41,17 @@ if (beatmap.BeatmapCustomData != null)
 }
 
 Debug.Assert(beatmap.Events.Any(e => e.CustomData?.Color != null));
+
+Console.WriteLine("Note clone");
+Tests.CheckClone(beatmap.Notes.First());
+Console.WriteLine("Obstacle clone");
+Tests.CheckClone(beatmap.Obstacles.First());
+
+if (beatmap.Sliders != null)
+{
+    Console.WriteLine("Slider clone");
+    Tests.CheckClone(beatmap.Sliders.First());
+}
+
+Console.WriteLine("Event clone");
+Tests.CheckClone(beatmap.Events.First());

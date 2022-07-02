@@ -8,6 +8,21 @@ namespace BeatmapParserRefactor;
 
 public static class Tests
 {
+    public static void CheckClone<T>(T item) where T: IBeatmapItem
+    {
+        var clone = item.Clone();
+        
+        if (item.GetType() != clone.GetType()) throw new InvalidOperationException($"Types are not equal {item.GetType()}");
+
+        var tClone = (T) clone;
+        
+        if (Math.Abs(item.Time - tClone.Time) > 0.0001) throw new InvalidOperationException($"Times are not equal {item.GetType()}");
+
+        if (JsonConvert.SerializeObject(item) != JsonConvert.SerializeObject(tClone))
+            throw new InvalidOperationException($"Generated json is not identical {item.GetType()}");
+        
+    }
+    
     public static void CheckMutability(IBeatmap beatmap, StreamReader originalStream, JsonSerializer serializer)
     {
         using var jTokenWriter = new JTokenWriter();
