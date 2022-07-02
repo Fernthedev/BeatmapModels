@@ -6,11 +6,11 @@
 
 public interface IBeatmap : IBeatmapCustomJSON
 {
-    IList<INote> Notes { get; }
-    IList<IEvent> Events { get; }
-    IList<IObstacle> Obstacles { get; }
-    IList<IWaypoint> Waypoints { get; }
-    IList<ISlider> Sliders { get; }
+    IList<INote> Notes { get; set; }
+    IList<IEvent> Events { get; set; }
+    IList<IObstacle> Obstacles { get; set; }
+    IList<IWaypoint> Waypoints { get; set; }
+    IList<ISlider>? Sliders { get; set; }
 
     IBeatmapCustomData? BeatmapCustomData { get; set; }
 

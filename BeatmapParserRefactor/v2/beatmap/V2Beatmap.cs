@@ -6,7 +6,7 @@ public class V2Beatmap : IBeatmap
 {
     [JsonConstructor]
     public V2Beatmap(IDictionary<string, JToken>? unserializedData, IList<INote> notes, IList<IEvent> events,
-        IList<IObstacle> obstacles, IList<IWaypoint> waypoints, IList<ISlider> sliders,
+        IList<IObstacle> obstacles, IList<IWaypoint> waypoints, IList<ISlider>? sliders,
         IBeatmapCustomData? beatmapCustomData)
     {
         UnserializedData = unserializedData ?? new Dictionary<string, JToken>();
@@ -42,23 +42,23 @@ public class V2Beatmap : IBeatmap
 
     [JsonProperty("_notes")]
     [JsonConverter(typeof(V2NoteListConverter))]
-    public IList<INote> Notes { get; }
+    public IList<INote> Notes { get; set; }
 
     [JsonProperty("_events")]
     [JsonConverter(typeof(V2EventListConverter))]
-    public IList<IEvent> Events { get; }
+    public IList<IEvent> Events { get; set; }
 
     [JsonConverter(typeof(V2ObstacleListConverter))]
     [JsonProperty("_obstacles")]
-    public IList<IObstacle> Obstacles { get; }
+    public IList<IObstacle> Obstacles { get; set; }
 
     [JsonConverter(typeof(V2WaypointListConverter))]
     [JsonProperty("_waypoints")]
-    public IList<IWaypoint> Waypoints { get; }
+    public IList<IWaypoint> Waypoints { get; set; }
 
     [JsonConverter(typeof(V2SliderListConverter))]
     [JsonProperty("_sliders")]
-    public IList<ISlider> Sliders { get; }
+    public IList<ISlider>? Sliders { get; set; }
 
     [JsonProperty("_customData")]
     [TypeConverter(typeof(V2BeatmapCustomData))]

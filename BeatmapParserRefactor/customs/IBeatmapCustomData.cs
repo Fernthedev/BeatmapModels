@@ -1,4 +1,4 @@
 ﻿public interface IBeatmapCustomData : ICustomData
 {
-    IList<ICustomEvent>? CustomEvents { get; }
+    IReadOnlyList<ICustomEvent>? CustomEvents { get; set; }
 }
