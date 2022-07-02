@@ -27,7 +27,17 @@ Debug.Assert(beatmap != null, nameof(beatmap) + " != null");
 
 Console.WriteLine("Parsed beatmap");
 
+Tests.CheckMutability(beatmap, streamReader, serializer);
+
+beatmap.Events = beatmap.Events.OrderBy(e => e).ToList();
+beatmap.Notes = beatmap.Notes.OrderBy(e => e).ToList();
+beatmap.Obstacles = beatmap.Obstacles.OrderBy(e => e).ToList();
+beatmap.Sliders = beatmap.Sliders?.OrderBy(e => e).ToList();
+beatmap.Waypoints = beatmap.Waypoints.OrderBy(e => e).ToList();
+
+if (beatmap.BeatmapCustomData != null)
+{
+    beatmap.BeatmapCustomData.CustomEvents = beatmap.BeatmapCustomData.CustomEvents?.OrderBy(e => e).ToList();
+}
 
 Debug.Assert(beatmap.Events.Any(e => e.CustomData?.Color != null));
-
-Tests.CheckMutability(beatmap, streamReader, serializer);
