@@ -11,7 +11,4 @@ public interface IEventCustomData : ICustomData
     ///     Proceed with caution
     /// </summary>
     IReadOnlySet<int>? LightIDs { get; set; }
-
-    // TODO: Remove this and make v2 exclusive?
-    [CanBeNull] ChromaGradient? LightGradient { get; set; }
 }

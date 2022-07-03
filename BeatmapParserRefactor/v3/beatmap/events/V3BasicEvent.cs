@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-public class V2BasicEvent : V2CustomBeatmapItem<V2EventCustomData>, IBasicEvent
+public class V3BasicEvent : V3CustomBeatmapItem<V3EventCustomData>, IBasicEvent
 {
-    public V2BasicEvent(IDictionary<string, JToken>? unserializedData, float time, V2EventCustomData? typedCustomData,
+    public V3BasicEvent(IDictionary<string, JToken>? unserializedData, float time, V3EventCustomData? typedCustomData,
         BeatmapEventType type, int value, float? floatValue) : base(unserializedData, time, typedCustomData)
     {
         Type = type;
@@ -13,17 +13,17 @@ public class V2BasicEvent : V2CustomBeatmapItem<V2EventCustomData>, IBasicEvent
 
     public override IBeatmapJSON Clone()
     {
-        return new V2BasicEvent(new Dictionary<string, JToken>(UnserializedData), Time,
-            CustomData?.Clone() as V2EventCustomData, Type, Value, FloatValue);
+        return new V3BasicEvent(new Dictionary<string, JToken>(UnserializedData), Time,
+            CustomData?.Clone() as V3EventCustomData, Type, Value, FloatValue);
     }
 
-    [JsonProperty("_type")] 
+    [JsonProperty("et")] 
     public BeatmapEventType Type { get; set; }
 
-    [JsonProperty("_value")] 
+    [JsonProperty("i")] 
     public int Value { get; set; }
 
-    [JsonProperty("_floatValue")] 
+    [JsonProperty("f")] 
     public float? FloatValue { get; set; }
 
     [JsonIgnore]

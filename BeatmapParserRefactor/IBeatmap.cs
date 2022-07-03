@@ -6,15 +6,30 @@
 
 public interface IBeatmap : IBeatmapCustomJSON
 {
+    string? Version { get; set; }
+    public bool UseNormalEventsAsCompatibleEvents { get; set; }
+    
     IList<INote> Notes { get; set; }
-    IList<IEvent> Events { get; set; }
+    
+    // On v2 this WILL copy the list with only bombs
+    IList<IBomb> Bombs { get; set; }
+
+    // v2 returns all events
+    // on v3, this will return ONLY basic events
+    IList<IBasicEvent> BasicEvents { get; set; }
     IList<IObstacle> Obstacles { get; set; }
     IList<IWaypoint> Waypoints { get; set; }
-    IList<ISlider>? Sliders { get; set; }
 
     IBeatmapCustomData? BeatmapCustomData { get; set; }
 
     // TODO: The rest
+}
+
+public interface IBomb : IBeatmapObject
+{
+    public int LineLayer { get; set; }
+    
+    public INoteCustomData? CustomData { get; set; }
 }
 
 public interface INote : IBeatmapObject
@@ -39,7 +54,12 @@ public interface IObstacle : IBeatmapObject
 
 public interface IEvent : ICustomBeatmapItem
 {
-    public int Type { get; set; }
+    
+}
+
+public interface IBasicEvent : IEvent
+{
+    public BeatmapEventType Type { get; set; }
 
     public int Value { get; set; }
 

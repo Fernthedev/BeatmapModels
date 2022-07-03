@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-public class V2Note : V2BeatmapObject<V2NoteCustomData>, INote
+public class V2Note : V2BeatmapObject<V2NoteCustomData>, INote, IBomb
 {
     public V2Note(IDictionary<string, JToken>? unserializedData, float time, V2NoteCustomData? typedCustomData, int lineIndex, int type, int cutDirection, int lineLayer) : base(unserializedData, time, typedCustomData, lineIndex)
     {

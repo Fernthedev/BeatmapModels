@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-public class V2ListConverter<I, T> : JsonConverter<IList<I>>
+public class V3ListConverter<I, T> : JsonConverter<IList<I>>
     where I : IBeatmapJSON
     where T : class, I
 
@@ -19,26 +19,27 @@ public class V2ListConverter<I, T> : JsonConverter<IList<I>>
     }
 }
 
-public class V2NoteListConverter : V2ListConverter<INote, V2Note>
+public class V3NoteListConverter : V3ListConverter<INote, V3Note>
 {
 }
 
-public class V2ObstacleListConverter : V2ListConverter<IObstacle, V2Obstacle>
+public class V3BombListConverter : V3ListConverter<IBomb, V3Bomb>
 {
 }
 
-public class V2EventListConverter : V2ListConverter<IBasicEvent, V2BasicEvent>
+public class V3ObstacleListConverter : V3ListConverter<IObstacle, V3Obstacle>
 {
 }
 
-public class V2CustomEventListConverter : V2ListConverter<ICustomEvent, V2CustomEvent>
+public class V3BasicEventListConverter : V3ListConverter<IBasicEvent, V3BasicEvent>
 {
 }
 
-public class V2SliderListConverter : V2ListConverter<ISlider, V2Slider>
+
+public class V3CustomEventListConverter : V3ListConverter<ICustomEvent, V3CustomEvent>
 {
 }
 
-public class V2WaypointListConverter : V2ListConverter<IWaypoint, V2Waypoint>
+public class V3WaypointListConverter : V3ListConverter<IWaypoint, V3Waypoint>
 {
 }
