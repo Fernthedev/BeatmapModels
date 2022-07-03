@@ -21,11 +21,27 @@ var options = new JsonSerializerSettings
 
 var serializer = JsonSerializer.CreateDefault(options);
 
-Stopwatch s = Stopwatch.StartNew();
+var stopwatch = Stopwatch.StartNew();
 IBeatmap? beatmap = serializer.Deserialize<V2Beatmap>(jsonReader);
 Debug.Assert(beatmap != null, nameof(beatmap) + " != null");
 
-Console.WriteLine($"Parsed beatmap in {s.ElapsedMilliseconds}ms");
+Console.WriteLine($"Parsed beatmap in {stopwatch.ElapsedMilliseconds}ms");
+
+Console.WriteLine("Repeated runs for JIT warmup:");
+stream.Seek(0, SeekOrigin.Begin);
+var json = streamReader.ReadToEnd();
+
+for (var i = 0; i < 10; i++)
+{
+    using var jsonReader2 = new JsonTextReader(new StringReader(json));
+    
+    stopwatch.Restart();
+    serializer.Deserialize<V2Beatmap>(jsonReader2);
+    stopwatch.Stop();
+
+    Console.WriteLine($"Run {i} took: {stopwatch.ElapsedMilliseconds}ms");
+}
+
 
 Tests.CheckMutability(beatmap, streamReader, serializer);
 
