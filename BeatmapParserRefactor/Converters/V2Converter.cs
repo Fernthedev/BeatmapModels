@@ -15,7 +15,7 @@ public class V2ListConverter<I, T> : JsonConverter<IList<I>>
     public override IList<I>? ReadJson(JsonReader reader, Type objectType, IList<I>? existingValue, bool hasExistingValue,
         JsonSerializer serializer)
     {
-        return serializer.Deserialize<List<T>>(reader)?.Cast<I>().ToList();
+        return serializer.Deserialize<List<T>>(reader)?.ToList<I>();
     }
 }
 

@@ -21,11 +21,11 @@ var options = new JsonSerializerSettings
 
 var serializer = JsonSerializer.CreateDefault(options);
 
-
+Stopwatch s = Stopwatch.StartNew();
 IBeatmap? beatmap = serializer.Deserialize<V2Beatmap>(jsonReader);
 Debug.Assert(beatmap != null, nameof(beatmap) + " != null");
 
-Console.WriteLine("Parsed beatmap");
+Console.WriteLine($"Parsed beatmap in {s.ElapsedMilliseconds}ms");
 
 Tests.CheckMutability(beatmap, streamReader, serializer);
 
