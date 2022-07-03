@@ -1,16 +1,13 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Globalization;
-using System.Text;
 using BeatmapParserRefactor;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
-using var stream = File.OpenRead("test_maps/FoolishOfMeEPlusLawless.dat");
-using var streamReader = new StreamReader(stream, new UTF8Encoding());
-using var jsonReader = new JsonTextReader(streamReader);
+const bool v2 = true;
+const bool v3 = true;
+
 
 var options = new JsonSerializerSettings
 {
@@ -22,45 +19,26 @@ var options = new JsonSerializerSettings
 var serializer = JsonSerializer.CreateDefault(options);
 
 var stopwatch = Stopwatch.StartNew();
-IBeatmap? beatmap = serializer.Deserialize<V2Beatmap>(jsonReader);
-Debug.Assert(beatmap != null, nameof(beatmap) + " != null");
 
-Console.WriteLine($"Parsed beatmap in {stopwatch.ElapsedMilliseconds}ms");
-
-Console.WriteLine("Repeated runs for JIT warmup:");
-stream.Seek(0, SeekOrigin.Begin);
-var json = streamReader.ReadToEnd();
-
-for (var i = 0; i < 10; i++)
+if (v2)
 {
-    using var jsonReader2 = new JsonTextReader(new StringReader(json));
-    
+    IBeatmap? v2Beatmap = Tests.GetTestV2Beatmap(serializer);
+    Debug.Assert(v2Beatmap != null, nameof(v2Beatmap) + " != null");
+
+    Console.WriteLine($"Parsed v2 beatmap in {stopwatch.ElapsedMilliseconds}ms");
+    Tests.TestRepeatedV2Deserialization(serializer);
+    Tests.StressTestBeatmap(v2Beatmap, Tests.V2StreamReader(), serializer);
+    Console.WriteLine("Passed all v2 tests!");
+}
+
+if (v3)
+{
     stopwatch.Restart();
-    serializer.Deserialize<V2Beatmap>(jsonReader2);
-    stopwatch.Stop();
+    IBeatmap v3Beatmap = Tests.GetTestV3Beatmap(serializer);
+    Debug.Assert(v3Beatmap != null, nameof(v3Beatmap) + " != null");
 
-    Console.WriteLine($"Run {i} took: {stopwatch.ElapsedMilliseconds}ms");
+    Console.WriteLine($"Parsed v3 beatmap in {stopwatch.ElapsedMilliseconds}ms");
+    Tests.TestRepeatedV3Deserialization(serializer);
+    Tests.StressTestBeatmap(v3Beatmap, Tests.V3StreamReader(), serializer);
+    Console.WriteLine("Passed all v3 tests!");
 }
-
-
-Tests.CheckMutability(beatmap, streamReader, serializer);
-
-beatmap.BasicEvents = beatmap.BasicEvents.OrderBy(e => e).ToList();
-beatmap.Notes = beatmap.Notes.OrderBy(e => e).ToList();
-beatmap.Obstacles = beatmap.Obstacles.OrderBy(e => e).ToList();
-beatmap.Waypoints = beatmap.Waypoints.OrderBy(e => e).ToList();
-
-if (beatmap.BeatmapCustomData != null)
-{
-    beatmap.BeatmapCustomData.CustomEvents = beatmap.BeatmapCustomData.CustomEvents?.OrderBy(e => e).ToList();
-}
-
-Debug.Assert(beatmap.BasicEvents.Any(e => e.CustomData?.Color != null));
-
-Console.WriteLine("Note clone");
-Tests.CheckClone(beatmap.Notes.First());
-Console.WriteLine("Obstacle clone");
-Tests.CheckClone(beatmap.Obstacles.First());
-
-Console.WriteLine("Event clone");
-Tests.CheckClone(beatmap.BasicEvents.First());

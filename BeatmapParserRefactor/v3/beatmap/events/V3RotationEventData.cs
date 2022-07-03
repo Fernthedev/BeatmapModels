@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-public class V3RotationEventData : V3CustomBeatmapItem, IEvent
+public class V3RotationEventData : V3CustomBeatmapItem
 {
     public V3RotationEventData(IDictionary<string, JToken>? unserializedData, float time, ICustomData? untypedCustomData, int executionTime, float rotation) : base(unserializedData, time, untypedCustomData)
     {

@@ -52,12 +52,7 @@ public interface IObstacle : IBeatmapObject
     public IObstacleCustomData? CustomData { get; set; }
 }
 
-public interface IEvent : ICustomBeatmapItem
-{
-    
-}
-
-public interface IBasicEvent : IEvent
+public interface IBasicEvent : ICustomBeatmapItem
 {
     public BeatmapEventType Type { get; set; }
 

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-public class V3BpmChangeEventData : V3CustomBeatmapItem, IEvent
+public class V3BpmChangeEventData : V3CustomBeatmapItem
 {
     public V3BpmChangeEventData(IDictionary<string, JToken>? unserializedData, float time, ICustomData? untypedCustomData, float bpm) : base(unserializedData, time, untypedCustomData)
     {

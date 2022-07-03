@@ -56,7 +56,6 @@ public class V3Beatmap : IBeatmap
     public IList<IBasicEvent> BasicEvents { get; set; }
 
     [JsonProperty("colorBoostBeatmapEvents")]
-    [JsonConverter(typeof(V3BasicEventListConverter))]
     public IList<V3ColorBoostEvent> ColorBoostBeatmapEvents { get; set; }
 
 
@@ -82,8 +81,8 @@ public class V3Beatmap : IBeatmap
     [JsonConverter(typeof(V3BombListConverter))]
     public IList<IBomb> Bombs { get; set; }
 
-    [JsonConverter(typeof(V3ObstacleListConverter))]
     [JsonProperty("obstacles")]
+    [JsonConverter(typeof(V3ObstacleListConverter))]
     public IList<IObstacle> Obstacles { get; set; }
 
     [JsonConverter(typeof(V3WaypointListConverter))]

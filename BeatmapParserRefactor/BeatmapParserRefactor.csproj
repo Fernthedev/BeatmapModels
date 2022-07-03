@@ -20,5 +20,8 @@
         <None Update="test_maps/FoolishOfMeEPlusLawless.dat">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Update="test_maps/IMY.dat">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 </Project>

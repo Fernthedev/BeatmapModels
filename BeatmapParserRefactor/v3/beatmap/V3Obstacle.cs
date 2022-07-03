@@ -17,6 +17,7 @@ public class V3Obstacle : V3BeatmapObject<V3ObstacleCustomData>, IObstacle
     }
 
 
+    [JsonIgnore]
     public int Type
     {
         get => Height;

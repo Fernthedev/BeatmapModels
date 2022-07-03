@@ -44,7 +44,7 @@ public abstract class V3CustomBeatmapItem<T> : V3BeatmapItem, ICustomBeatmapItem
         TypedCustomData = typedCustomData;
     }
 
-    [JsonProperty("_customData")] 
+    [JsonProperty("customData")] 
     protected T? TypedCustomData { get; set; }
 
     [JsonIgnore]

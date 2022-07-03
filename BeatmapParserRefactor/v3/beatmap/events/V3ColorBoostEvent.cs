@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-public class V3ColorBoostEvent : V3CustomBeatmapItem, IEvent
+public class V3ColorBoostEvent : V3CustomBeatmapItem
 {
     public V3ColorBoostEvent(IDictionary<string, JToken>? unserializedData, float time, ICustomData? untypedCustomData, bool boost) : base(unserializedData, time, untypedCustomData)
     {
