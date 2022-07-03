@@ -1,16 +1,15 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 public class V2EventCustomData : AbstractV2CustomData, IEventCustomData
 {
-    public V2EventCustomData(IDictionary<string, JToken?>? unserializedData) : base(unserializedData)
+    public V2EventCustomData(IDictionary<string, JToken>? dictionary, Color? color, IReadOnlySet<int>? lightIDs, ChromaGradient? lightGradient) : base(dictionary)
     {
+        Color = color;
+        LightIDs = lightIDs;
+        LightGradient = lightGradient;
     }
-
-    public V2EventCustomData(IEnumerable<KeyValuePair<string, JToken?>> collection) : base(collection)
-    {
-    }
-
 
     public override IBeatmapJSON Clone()
     {
@@ -19,7 +18,7 @@ public class V2EventCustomData : AbstractV2CustomData, IEventCustomData
 
     public override ICustomData ShallowClone()
     {
-        return new V2EventCustomData(this);
+        return new V2EventCustomData(new Dictionary<string, JToken>(UnserializedData), Color, LightIDs, LightGradient);
     }
 
     public override ICustomData DeepCopy()
@@ -27,24 +26,23 @@ public class V2EventCustomData : AbstractV2CustomData, IEventCustomData
         throw new NotImplementedException();
     }
 
-
+    [JsonProperty("_color")]
+    [JsonConverter(typeof(ColorConverter))]
     public Color? Color
     {
-        get => this["_color"]?.AsColor();
-        set => this["_color"] = value == null
-            ? JValue.CreateNull()
-            : new JArray(value.Value.r, value.Value.g, value.Value.b, value.Value.a);
+        get;
+        set;
     }
 
     public IReadOnlySet<int>? LightIDs
     {
-        get => this["_lightId"]?.ToObject<IReadOnlySet<int>>();
-        set => this["_lightId"] = value == null ? JValue.CreateNull() : JObject.FromObject(value);
+        get;
+        set;
     }
 
     public ChromaGradient? LightGradient
     {
-        get => this["_lightGradient"]?.ToObject<ChromaGradient>();
-        set => this["_lightGradient"] = value == null ? JValue.CreateNull() : JObject.FromObject(value);
+        get;
+        set;
     }
 }

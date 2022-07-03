@@ -13,7 +13,7 @@ public class V2Note : V2BeatmapObject<V2NoteCustomData>, INote
     public override IBeatmapJSON Clone()
     {
         return new V2Note(new Dictionary<string, JToken>(UnserializedData), Time,
-            new V2NoteCustomData(TypedCustomData), LineIndex, Type, CutDirection, LineLayer);
+            TypedCustomData?.Clone() as V2NoteCustomData, LineIndex, Type, CutDirection, LineLayer);
     }
 
     [JsonProperty("_type")]
@@ -42,10 +42,5 @@ public class V2Note : V2BeatmapObject<V2NoteCustomData>, INote
     {
         get => TypedCustomData;
         set => TypedCustomData = CustomDataWrap(value);
-    }
-
-    protected override V2NoteCustomData Internal_CustomDataWrap(ICustomData data)
-    {
-        return new V2NoteCustomData(data);
     }
 }

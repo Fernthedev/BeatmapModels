@@ -14,7 +14,7 @@ public class V2Event : V2CustomBeatmapItem<V2EventCustomData>, IEvent
     public override IBeatmapJSON Clone()
     {
         return new V2Event(new Dictionary<string, JToken>(UnserializedData), Time,
-            new V2EventCustomData(TypedCustomData), Type, Value, FloatValue);
+            CustomData?.Clone() as V2EventCustomData, Type, Value, FloatValue);
     }
 
     [JsonProperty("_type")] 
@@ -31,10 +31,5 @@ public class V2Event : V2CustomBeatmapItem<V2EventCustomData>, IEvent
     {
         get => TypedCustomData;
         set => CustomDataWrap(value);
-    }
-
-    protected override V2EventCustomData Internal_CustomDataWrap(ICustomData data)
-    {
-        return new V2EventCustomData(data);
     }
 }

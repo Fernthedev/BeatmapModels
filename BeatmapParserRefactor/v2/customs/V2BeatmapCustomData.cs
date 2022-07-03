@@ -3,23 +3,19 @@ using Newtonsoft.Json.Linq;
 
 public class V2BeatmapCustomData : AbstractV2CustomData, IBeatmapCustomData
 {
-    public V2BeatmapCustomData(IDictionary<string, JToken?>? unserializedData, IReadOnlyList<ICustomEvent>? customEvents) :
-        base(unserializedData)
+    [JsonConstructor]
+    public V2BeatmapCustomData(IDictionary<string, JToken>? dictionary, IReadOnlyList<ICustomEvent>? customEvents) : base(dictionary)
     {
         CustomEvents = customEvents;
     }
 
-    [JsonConstructor]
-    public V2BeatmapCustomData(IEnumerable<KeyValuePair<string, JToken?>> collection) : base(collection)
-    {
-        // CustomEvents = this["_customEvents"]?.ToObject<IEnumerable<V2CustomEvent>>()?.Cast<ICustomEvent>().ToList();
-    }
 
-
+    [JsonProperty("_customEvents")]
+    [JsonConverter(typeof(V2CustomEventListConverter))]
     public IReadOnlyList<ICustomEvent>? CustomEvents
     {
-        get => this["_customEvents"]?.ToObject<IEnumerable<V2CustomEvent>>()?.Cast<ICustomEvent>().ToList();
-        set => this["_customEvents"] = value == null ? JValue.CreateNull() : JArray.FromObject(value);
+        get;
+        set;
     }
 
     public override IBeatmapJSON Clone()
@@ -29,7 +25,7 @@ public class V2BeatmapCustomData : AbstractV2CustomData, IBeatmapCustomData
 
     public override ICustomData ShallowClone()
     {
-        return new V2BeatmapCustomData(this, CustomEvents?.ToList());
+        return new V2BeatmapCustomData(new Dictionary<string, JToken>(UnserializedData), CustomEvents?.ToList());
     }
 
     public override ICustomData DeepCopy()

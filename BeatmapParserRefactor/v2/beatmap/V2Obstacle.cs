@@ -13,7 +13,7 @@ public class V2Obstacle : V2BeatmapObject<V2ObstacleCustomData>, IObstacle
     public override IBeatmapJSON Clone()
     {
         return new V2Obstacle(new Dictionary<string, JToken>(UnserializedData), Time,
-            new V2ObstacleCustomData(TypedCustomData), LineIndex, Type, Duration, Width);
+            TypedCustomData?.Clone() as V2ObstacleCustomData, LineIndex, Type, Duration, Width);
     }
 
     [JsonProperty("_type")]
@@ -43,10 +43,5 @@ public class V2Obstacle : V2BeatmapObject<V2ObstacleCustomData>, IObstacle
     {
         get => TypedCustomData;
         set => CustomDataWrap(value);
-    }
-
-    protected override V2ObstacleCustomData Internal_CustomDataWrap(ICustomData data)
-    {
-        return new V2ObstacleCustomData(data);
     }
 }

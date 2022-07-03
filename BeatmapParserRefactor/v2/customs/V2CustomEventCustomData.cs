@@ -2,11 +2,7 @@
 
 public class V2CustomEventCustomData : AbstractV2CustomData, ICustomEventCustomData
 {
-    public V2CustomEventCustomData(IDictionary<string, JToken?>? unserializedData) : base(unserializedData)
-    {
-    }
-
-    public V2CustomEventCustomData(IEnumerable<KeyValuePair<string, JToken?>> collection) : base(collection)
+    public V2CustomEventCustomData(IDictionary<string, JToken>? dictionary) : base(dictionary)
     {
     }
 
@@ -17,7 +13,7 @@ public class V2CustomEventCustomData : AbstractV2CustomData, ICustomEventCustomD
 
     public override ICustomData ShallowClone()
     {
-        return new V2CustomEventCustomData(this);
+        return new V2CustomEventCustomData(new Dictionary<string, JToken>(UnserializedData));
     }
 
     public override ICustomData DeepCopy()

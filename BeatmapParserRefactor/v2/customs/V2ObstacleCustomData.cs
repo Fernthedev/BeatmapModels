@@ -2,11 +2,7 @@
 
 public class V2ObstacleCustomData : V2ObjectCustomData, IObstacleCustomData
 {
-    public V2ObstacleCustomData(IDictionary<string, JToken?>? unserializedData) : base(unserializedData)
-    {
-    }
-
-    public V2ObstacleCustomData(IEnumerable<KeyValuePair<string, JToken?>> collection) : base(collection)
+    public V2ObstacleCustomData(IDictionary<string, JToken>? dictionary) : base(dictionary)
     {
     }
 
@@ -18,7 +14,7 @@ public class V2ObstacleCustomData : V2ObjectCustomData, IObstacleCustomData
 
     public override ICustomData ShallowClone()
     {
-        return new V2ObstacleCustomData(this);
+        return new V2ObstacleCustomData(new Dictionary<string, JToken>(UnserializedData));
     }
 
     public override ICustomData DeepCopy()

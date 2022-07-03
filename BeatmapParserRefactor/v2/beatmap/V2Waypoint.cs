@@ -12,7 +12,7 @@ public class V2Waypoint : V2BeatmapObject<V2WaypointCustomData>, IWaypoint
     public override IBeatmapJSON Clone()
     {
         return new V2Waypoint(new Dictionary<string, JToken>(UnserializedData), Time,
-            new V2WaypointCustomData(TypedCustomData), LineIndex, LineLayer, OffsetDirection);
+            TypedCustomData?.Clone() as V2WaypointCustomData, LineIndex, LineLayer, OffsetDirection);
     }
 
 
@@ -35,10 +35,5 @@ public class V2Waypoint : V2BeatmapObject<V2WaypointCustomData>, IWaypoint
     {
         get => TypedCustomData;
         set => CustomDataWrap(value);
-    }
-
-    protected override V2WaypointCustomData Internal_CustomDataWrap(ICustomData data)
-    {
-        return new V2WaypointCustomData(data);
     }
 }

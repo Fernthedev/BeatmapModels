@@ -2,11 +2,7 @@
 
 public class V2SliderCustomData : V2ObjectCustomData, ICustomData
 {
-    public V2SliderCustomData(IDictionary<string, JToken?>? unserializedData) : base(unserializedData)
-    {
-    }
-
-    public V2SliderCustomData(IEnumerable<KeyValuePair<string, JToken?>> collection) : base(collection)
+    public V2SliderCustomData(IDictionary<string, JToken>? dictionary) : base(dictionary)
     {
     }
 
@@ -17,7 +13,7 @@ public class V2SliderCustomData : V2ObjectCustomData, ICustomData
 
     public override ICustomData ShallowClone()
     {
-        return new V2SliderCustomData(this);
+        return new V2SliderCustomData(new Dictionary<string, JToken>(UnserializedData));
     }
 
     public override ICustomData DeepCopy()

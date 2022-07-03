@@ -46,7 +46,7 @@ public class V2Slider : V2BeatmapObject<V2SliderCustomData>, ISlider
     public override IBeatmapJSON Clone()
     {
         return new V2Slider(new Dictionary<string, JToken>(UnserializedData), Time,
-            new V2SliderCustomData(TypedCustomData), LineIndex, Type, CutDirection, LineLayer, ColorType, HeadTime,
+            TypedCustomData?.Clone() as V2SliderCustomData, LineIndex, Type, CutDirection, LineLayer, ColorType, HeadTime,
             HeadLineIndex,
             HeadLineLayer, HeadControlPointLengthMultiplier, HeadCutDirection, TailTime, TailLineIndex, TailLineLayer,
             TailControlPointLengthMultiplier, TailCutDirection, SliderMidAnchorMode);
@@ -134,10 +134,5 @@ public class V2Slider : V2BeatmapObject<V2SliderCustomData>, ISlider
     {
         get;
         set;
-    }
-
-    protected override V2SliderCustomData Internal_CustomDataWrap(ICustomData data)
-    {
-        return new V2SliderCustomData(data);
     }
 }

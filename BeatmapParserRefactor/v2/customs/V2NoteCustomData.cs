@@ -2,11 +2,7 @@
 
 public class V2NoteCustomData : V2ObjectCustomData, INoteCustomData
 {
-    public V2NoteCustomData(IDictionary<string, JToken?>? unserializedData) : base(unserializedData)
-    {
-    }
-
-    public V2NoteCustomData(IEnumerable<KeyValuePair<string, JToken?>> collection) : base(collection)
+    public V2NoteCustomData(IDictionary<string, JToken>? dictionary) : base(dictionary)
     {
     }
 
@@ -17,7 +13,7 @@ public class V2NoteCustomData : V2ObjectCustomData, INoteCustomData
 
     public override ICustomData ShallowClone()
     {
-        return new V2NoteCustomData(this);
+        return new V2NoteCustomData(new Dictionary<string, JToken>(UnserializedData));
     }
 
     public override ICustomData DeepCopy()

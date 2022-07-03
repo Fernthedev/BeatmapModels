@@ -2,11 +2,7 @@
 
 public class V2WaypointCustomData : V2ObjectCustomData
 {
-    public V2WaypointCustomData(IDictionary<string, JToken?>? unserializedData) : base(unserializedData)
-    {
-    }
-
-    public V2WaypointCustomData(IEnumerable<KeyValuePair<string, JToken?>> collection) : base(collection)
+    public V2WaypointCustomData(IDictionary<string, JToken>? dictionary) : base(dictionary)
     {
     }
 
@@ -17,7 +13,7 @@ public class V2WaypointCustomData : V2ObjectCustomData
 
     public override ICustomData ShallowClone()
     {
-        return new V2WaypointCustomData(this);
+        return new V2WaypointCustomData(new Dictionary<string, JToken>(UnserializedData));
     }
 
     public override ICustomData DeepCopy()

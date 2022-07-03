@@ -37,7 +37,7 @@ public class V2Beatmap : IBeatmap
         get => BeatmapCustomData;
         set => BeatmapCustomData = value is null
             ? null
-            : value as V2BeatmapCustomData ?? new V2BeatmapCustomData(value.UnserializedData);
+            : value as V2BeatmapCustomData ?? throw new InvalidCastException($"Expected type {typeof(V2BeatmapCustomData)}, got type {value.GetType()}");
     }
 
     [JsonProperty("_notes")]

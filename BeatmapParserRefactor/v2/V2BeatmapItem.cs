@@ -47,9 +47,7 @@ public abstract class V2CustomBeatmapItem<T> : V2BeatmapItem, ICustomBeatmapItem
         {
             null => null,
             T customData => customData,
-            _ => Internal_CustomDataWrap(data)
+            _ => throw new InvalidCastException($"Expected type {typeof(T)}, got {data.GetType()}")
         };
     }
-
-    protected abstract T Internal_CustomDataWrap(ICustomData data);
 }

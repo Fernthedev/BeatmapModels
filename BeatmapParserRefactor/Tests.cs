@@ -109,6 +109,8 @@ public static class Tests
             var prop1 = properties1[key];
             var prop2 = properties2[key];
 
+            // Color alpha is omitted
+            if (prop1.Name == "_color") continue;
 
             if (!CheckObject(prop1.Value, prop2.Value)) return false;
         }
