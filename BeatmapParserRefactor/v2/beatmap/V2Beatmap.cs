@@ -24,7 +24,7 @@ public class V2Beatmap : IBeatmap
     {
         return new V2Beatmap(new Dictionary<string, JToken>(UnserializedData), new List<INote>(Notes),
             new List<IEvent>(Events),
-            new List<IObstacle>(Obstacles), new List<IWaypoint>(Waypoints), new List<ISlider>(Sliders),
+            new List<IObstacle>(Obstacles), new List<IWaypoint>(Waypoints), Sliders?.ToList(),
             UntypedCustomData?.Clone() as V2BeatmapCustomData);
     }
 
