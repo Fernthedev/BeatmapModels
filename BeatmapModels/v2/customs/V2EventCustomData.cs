@@ -6,13 +6,14 @@ using UnityEngine;
 
 public class V2EventCustomData : AbstractV2CustomData, IEventCustomData
 {
-    public V2EventCustomData(IDictionary<string, JToken>? dictionary, Color? color, IReadOnlyList<int>? lightIDs, ChromaGradient? lightGradient) : base(dictionary)
+    public V2EventCustomData(IDictionary<string, JToken>? dictionary, Color? color, IReadOnlyList<int>? lightIDs,
+        ChromaGradient? lightGradient) : base(dictionary)
     {
         Color = color;
         LightIDs = lightIDs;
         LightGradient = lightGradient;
     }
-
+    
     public override IBeatmapJSON Clone()
     {
         return ShallowClone();
@@ -30,21 +31,11 @@ public class V2EventCustomData : AbstractV2CustomData, IEventCustomData
 
     [JsonProperty("_color")]
     [JsonConverter(typeof(ColorConverter))]
-    public Color? Color
-    {
-        get;
-        set;
-    }
+    public Color? Color { get; set; }
 
-    public IReadOnlyList<int>? LightIDs
-    {
-        get;
-        set;
-    }
-
-    public ChromaGradient? LightGradient
-    {
-        get;
-        set;
-    }
+    [JsonProperty("_lightIds")]
+    public IReadOnlyList<int>? LightIDs { get; set; }
+    
+    [JsonProperty("_lightGradient")]
+    public ChromaGradient? LightGradient { get; set; }
 }
