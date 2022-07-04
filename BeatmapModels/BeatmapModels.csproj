@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>BeatmapModels</AssemblyName>
+        <RootNamespace>BeatmapModels</RootNamespace>
+        <TargetFrameworks>net6.0;netstandard2.1</TargetFrameworks>
+        <ImplicitUsings>false</ImplicitUsings>
+        <PackageId>BeatmapModels</PackageId>
+        <Authors>FernTheDev</Authors>
+        <Company>BeatmapModels</Company>
+        <Product>BeatmapModels</Product>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <PlatformTarget>x64</PlatformTarget>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="Unity3D.SDK" Version="2021.1.14.1" />
+    </ItemGroup>
+</Project>
