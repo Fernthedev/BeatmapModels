@@ -1,5 +1,5 @@
 ﻿public enum V3Axis
 {
-	X,
-	Y
+    X,
+    Y
 }

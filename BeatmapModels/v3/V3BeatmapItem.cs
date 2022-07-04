@@ -28,7 +28,8 @@ public abstract class V3BeatmapItem : IBeatmapItem
 
 public abstract class V3CustomBeatmapItem : V3BeatmapItem, ICustomBeatmapItem
 {
-    protected V3CustomBeatmapItem(IDictionary<string, JToken>? unserializedData, float time, ICustomData? untypedCustomData) : base(
+    protected V3CustomBeatmapItem(IDictionary<string, JToken>? unserializedData, float time,
+        ICustomData? untypedCustomData) : base(
         unserializedData, time)
     {
         UntypedCustomData = untypedCustomData;
@@ -46,7 +47,7 @@ public abstract class V3CustomBeatmapItem<T> : V3BeatmapItem, ICustomBeatmapItem
         TypedCustomData = typedCustomData;
     }
 
-    [JsonProperty("customData")] 
+    [JsonProperty("customData")]
     protected T? TypedCustomData { get; set; }
 
     [JsonIgnore]

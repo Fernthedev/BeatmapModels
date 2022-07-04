@@ -4,6 +4,12 @@ using Newtonsoft.Json.Linq;
 
 public class V3SliderData : V3BaseSliderData
 {
+    public V3SliderData(IDictionary<string, JToken>? unserializedData, float time, V3NoteColorType colorType,
+        int headLine, int headLayer, NoteCutDirection headCutDirection, float tailBeat, int tailLine, int tailLayer) :
+        base(unserializedData, time, colorType, headLine, headLayer, headCutDirection, tailBeat, tailLine, tailLayer)
+    {
+    }
+
     [JsonProperty("mu")]
     public float HeadControlPointLengthMultiplier { get; set; }
 
@@ -15,12 +21,6 @@ public class V3SliderData : V3BaseSliderData
 
     [JsonProperty("m")]
     public v3SliderMidAnchorMode SliderMidAnchorMode { get; set; }
-
-    public V3SliderData(IDictionary<string, JToken>? unserializedData, float time, V3NoteColorType colorType,
-        int headLine, int headLayer, NoteCutDirection headCutDirection, float tailBeat, int tailLine, int tailLayer) :
-        base(unserializedData, time, colorType, headLine, headLayer, headCutDirection, tailBeat, tailLine, tailLayer)
-    {
-    }
 
     public override IBeatmapJSON Clone()
     {

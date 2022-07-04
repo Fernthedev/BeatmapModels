@@ -4,7 +4,8 @@ using Newtonsoft.Json.Linq;
 
 public class V2Obstacle : V2BeatmapObject<V2ObstacleCustomData>, IObstacle
 {
-    public V2Obstacle(IDictionary<string, JToken>? unserializedData, float time, V2ObstacleCustomData? typedCustomData, int lineIndex, int type, float duration, int width) : base(unserializedData, time, typedCustomData, lineIndex)
+    public V2Obstacle(IDictionary<string, JToken>? unserializedData, float time, V2ObstacleCustomData? typedCustomData,
+        int lineIndex, int type, float duration, int width) : base(unserializedData, time, typedCustomData, lineIndex)
     {
         Type = type;
         Duration = duration;
@@ -18,26 +19,14 @@ public class V2Obstacle : V2BeatmapObject<V2ObstacleCustomData>, IObstacle
     }
 
     [JsonProperty("_type")]
-    public int Type
-    {
-        get;
-        set;
-    }
+    public int Type { get; set; }
 
     [JsonProperty("_duration")]
-    public float Duration
-    {
-        get;
-        set;
-    }
+    public float Duration { get; set; }
 
 
     [JsonProperty("_width")]
-    public int Width
-    {
-        get;
-        set;
-    }
+    public int Width { get; set; }
 
     [JsonIgnore]
     public IObstacleCustomData? CustomData

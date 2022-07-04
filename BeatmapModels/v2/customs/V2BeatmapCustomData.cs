@@ -7,7 +7,8 @@ using Newtonsoft.Json.Linq;
 public class V2BeatmapCustomData : AbstractV2CustomData, IBeatmapCustomData
 {
     [JsonConstructor]
-    public V2BeatmapCustomData(IDictionary<string, JToken>? dictionary, IReadOnlyList<ICustomEvent>? customEvents) : base(dictionary)
+    public V2BeatmapCustomData(IDictionary<string, JToken>? dictionary, IReadOnlyList<ICustomEvent>? customEvents) :
+        base(dictionary)
     {
         CustomEvents = customEvents;
     }
@@ -15,11 +16,7 @@ public class V2BeatmapCustomData : AbstractV2CustomData, IBeatmapCustomData
 
     [JsonProperty("_customEvents")]
     [JsonConverter(typeof(V2CustomEventListConverter))]
-    public IReadOnlyList<ICustomEvent>? CustomEvents
-    {
-        get;
-        set;
-    }
+    public IReadOnlyList<ICustomEvent>? CustomEvents { get; set; }
 
     public override IBeatmapJSON Clone()
     {

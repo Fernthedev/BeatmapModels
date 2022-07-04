@@ -4,12 +4,6 @@ using Newtonsoft.Json.Linq;
 
 public class V3BurstSliderData : V3BaseSliderData
 {
-    [JsonProperty("sc")]
-    public int SliceCount { get; set; }
-
-    [JsonProperty("s")]
-    public float SquishAmount { get; set; }
-
     public V3BurstSliderData(IDictionary<string, JToken>? unserializedData, float time, V3NoteColorType colorType,
         int headLine, int headLayer, NoteCutDirection headCutDirection, float tailBeat, int tailLine, int tailLayer,
         int sliceCount, float squishAmount) : base(unserializedData, time, colorType, headLine, headLayer,
@@ -18,6 +12,12 @@ public class V3BurstSliderData : V3BaseSliderData
         SliceCount = sliceCount;
         SquishAmount = squishAmount;
     }
+
+    [JsonProperty("sc")]
+    public int SliceCount { get; set; }
+
+    [JsonProperty("s")]
+    public float SquishAmount { get; set; }
 
     public override IBeatmapJSON Clone()
     {

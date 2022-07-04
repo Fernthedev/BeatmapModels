@@ -18,13 +18,13 @@ public class V3BasicEvent : V3CustomBeatmapItem<V3EventCustomData>, IBasicEvent
             CustomData?.Clone() as V3EventCustomData, Type, Value, FloatValue);
     }
 
-    [JsonProperty("et")] 
+    [JsonProperty("et")]
     public BeatmapEventType Type { get; set; }
 
-    [JsonProperty("i")] 
+    [JsonProperty("i")]
     public int Value { get; set; }
 
-    [JsonProperty("f")] 
+    [JsonProperty("f")]
     public float? FloatValue { get; set; }
 
     [JsonIgnore]

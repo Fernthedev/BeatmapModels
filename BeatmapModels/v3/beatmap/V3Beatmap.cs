@@ -12,7 +12,8 @@ public class V3Beatmap : IBeatmap
         IList<V3ColorBoostEvent> colorBoostBeatmapEvents, IList<V3LightColorEventBoxGroup> lightColorEventBoxGroups,
         IList<V3LightRotationEventBoxGroup> lightRotationEventBoxGroups, IList<V3BurstSliderData> burstSliders,
         IList<V3SliderData> sliders, IList<INote> notes, IList<IBomb> bombs, IList<IObstacle> obstacles,
-        IList<IWaypoint> waypoints, IBeatmapCustomData? beatmapCustomData, IDictionary<string, JToken>? unserializedData)
+        IList<IWaypoint> waypoints, IBeatmapCustomData? beatmapCustomData,
+        IDictionary<string, JToken>? unserializedData)
     {
         Version = version;
         UseNormalEventsAsCompatibleEvents = useNormalEventsAsCompatibleEvents;
@@ -32,30 +33,20 @@ public class V3Beatmap : IBeatmap
         UnserializedData = unserializedData ?? new Dictionary<string, JToken>();
     }
 
-    [JsonProperty("version")] 
-    public string? Version { get; set; }
-
-    [JsonProperty("useNormalEventsAsCompatibleEvents")]
-    public bool UseNormalEventsAsCompatibleEvents { get; set; }
-    
     // public IList<IEvent> Events
     // {
-        // // TODO: Separate into BasicEvents, BPM, Rotation and ColorBoost events IF applicable
-        // get => BasicEvents.Union<IEvent>(ColorBoostBeatmapEvents).Union(BpmEvents).Union(RotationEvents).ToList();
-        // set => throw
-        //     // TODO: Separate into BasicEvents and ColorBoost events IF applicable
-        //     new InvalidOperationException();
+    // // TODO: Separate into BasicEvents, BPM, Rotation and ColorBoost events IF applicable
+    // get => BasicEvents.Union<IEvent>(ColorBoostBeatmapEvents).Union(BpmEvents).Union(RotationEvents).ToList();
+    // set => throw
+    //     // TODO: Separate into BasicEvents and ColorBoost events IF applicable
+    //     new InvalidOperationException();
     // }
-    
-    [JsonProperty("bpmEvents")] 
+
+    [JsonProperty("bpmEvents")]
     public IList<V3BpmChangeEventData> BpmEvents { get; }
 
-    [JsonProperty("rotationEvents")] 
+    [JsonProperty("rotationEvents")]
     public IList<V3RotationEventData> RotationEvents { get; }
-
-    [JsonProperty("basicBeatmapEvents")]
-    [JsonConverter(typeof(V3BasicEventListConverter))]
-    public IList<IBasicEvent> BasicEvents { get; set; }
 
     [JsonProperty("colorBoostBeatmapEvents")]
     public IList<V3ColorBoostEvent> ColorBoostBeatmapEvents { get; set; }
@@ -70,9 +61,19 @@ public class V3Beatmap : IBeatmap
 
     [JsonProperty("burstSliders")]
     public IList<V3BurstSliderData> BurstSliders { get; set; }
-    
+
     [JsonProperty("sliders")]
     public IList<V3SliderData> Sliders { get; set; }
+
+    [JsonProperty("version")]
+    public string? Version { get; set; }
+
+    [JsonProperty("useNormalEventsAsCompatibleEvents")]
+    public bool UseNormalEventsAsCompatibleEvents { get; set; }
+
+    [JsonProperty("basicBeatmapEvents")]
+    [JsonConverter(typeof(V3BasicEventListConverter))]
+    public IList<IBasicEvent> BasicEvents { get; set; }
 
     [JsonProperty("colorNotes")]
     [JsonConverter(typeof(V3NoteListConverter))]
@@ -92,9 +93,6 @@ public class V3Beatmap : IBeatmap
     public IList<IWaypoint> Waypoints { get; set; }
 
 
-    
-
-
     [JsonProperty("customData")]
     [TypeConverter(typeof(V3BeatmapCustomData))]
     [JsonConverter(typeof(ConcreteConverter<V3BeatmapCustomData>))]
@@ -110,17 +108,18 @@ public class V3Beatmap : IBeatmap
               throw new InvalidCastException(
                   $"Expected type {typeof(V3BeatmapCustomData)}, got type {value.GetType()}");
     }
-    
-    [JsonExtensionData] 
+
+    [JsonExtensionData]
     public IDictionary<string, JToken> UnserializedData { get; }
-    
+
     public bool isV3 => true;
 
     public IBeatmapJSON Clone()
     {
         return new V3Beatmap(Version, UseNormalEventsAsCompatibleEvents,
             BpmEvents, RotationEvents, BasicEvents, ColorBoostBeatmapEvents, LightColorEventBoxGroups,
-            LightRotationEventBoxGroups, BurstSliders.ToList(), Sliders.ToList(), Notes.ToList(), Bombs.ToList(), Obstacles.ToList(), Waypoints.ToList(),
+            LightRotationEventBoxGroups, BurstSliders.ToList(), Sliders.ToList(), Notes.ToList(), Bombs.ToList(),
+            Obstacles.ToList(), Waypoints.ToList(),
             UntypedCustomData?.Clone() as V3BeatmapCustomData, new Dictionary<string, JToken>(UnserializedData));
     }
 }

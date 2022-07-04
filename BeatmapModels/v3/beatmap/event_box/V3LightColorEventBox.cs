@@ -3,6 +3,18 @@ using Newtonsoft.Json;
 
 public class V3LightColorEventBox : V3EventBox
 {
+    public V3LightColorEventBox(V3IndexFilter indexFilter, float beatDistributionParam,
+        DistributionParamType beatDistributionParamType, float brightnessDistributionParam,
+        DistributionParamType brightnessDistributionParamType, bool brightnessDistributionShouldAffectFirstBaseEvent,
+        IList<V3LightColorBaseData> lightColorBaseDataList) : base(indexFilter, beatDistributionParam,
+        beatDistributionParamType)
+    {
+        BrightnessDistributionParam = brightnessDistributionParam;
+        BrightnessDistributionParamType = brightnessDistributionParamType;
+        BrightnessDistributionShouldAffectFirstBaseEvent = brightnessDistributionShouldAffectFirstBaseEvent;
+        LightColorBaseDataList = lightColorBaseDataList;
+    }
+
     [JsonProperty("r")]
     public float BrightnessDistributionParam { get; set; }
 
@@ -13,7 +25,8 @@ public class V3LightColorEventBox : V3EventBox
     public int BrightnessDistributionShouldAffectFirstBaseEventInt { get; set; }
 
     [JsonIgnore]
-    public bool BrightnessDistributionShouldAffectFirstBaseEvent {
+    public bool BrightnessDistributionShouldAffectFirstBaseEvent
+    {
         get => BrightnessDistributionShouldAffectFirstBaseEventInt == 1;
         set => BrightnessDistributionShouldAffectFirstBaseEventInt = value ? 1 : 0;
     }
@@ -21,12 +34,4 @@ public class V3LightColorEventBox : V3EventBox
 
     [JsonProperty("e")]
     public IList<V3LightColorBaseData> LightColorBaseDataList { get; set; }
-
-    public V3LightColorEventBox(V3IndexFilter indexFilter, float beatDistributionParam, DistributionParamType beatDistributionParamType, float brightnessDistributionParam, DistributionParamType brightnessDistributionParamType, bool brightnessDistributionShouldAffectFirstBaseEvent, IList<V3LightColorBaseData> lightColorBaseDataList) : base(indexFilter, beatDistributionParam, beatDistributionParamType)
-    {
-        BrightnessDistributionParam = brightnessDistributionParam;
-        BrightnessDistributionParamType = brightnessDistributionParamType;
-        BrightnessDistributionShouldAffectFirstBaseEvent = brightnessDistributionShouldAffectFirstBaseEvent;
-        LightColorBaseDataList = lightColorBaseDataList;
-    }
 }

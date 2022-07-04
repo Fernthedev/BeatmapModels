@@ -2,6 +2,12 @@
 
 public class V3IndexFilter
 {
+    public enum IndexFilterType
+    {
+        Division = 1,
+        StepAndOffset
+    }
+
     public V3IndexFilter(IndexFilterType type, int param0, int param1, int reversedInt)
     {
         Type = type;
@@ -27,11 +33,5 @@ public class V3IndexFilter
     {
         get => ReversedInt != 0;
         set => ReversedInt = value ? 1 : 0;
-    }
-
-    public enum IndexFilterType
-    {
-        Division = 1,
-        StepAndOffset
     }
 }

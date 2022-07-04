@@ -4,7 +4,8 @@ using Newtonsoft.Json.Linq;
 
 public class V3Bomb : V3BeatmapObject<V3NoteCustomData>, IBomb
 {
-    public V3Bomb(IDictionary<string, JToken>? unserializedData, float time, V3NoteCustomData? typedCustomData, int lineIndex, int lineLayer) : base(unserializedData, time, typedCustomData, lineIndex, lineLayer)
+    public V3Bomb(IDictionary<string, JToken>? unserializedData, float time, V3NoteCustomData? typedCustomData,
+        int lineIndex, int lineLayer) : base(unserializedData, time, typedCustomData, lineIndex, lineLayer)
     {
     }
 

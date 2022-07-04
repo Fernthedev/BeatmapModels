@@ -4,10 +4,23 @@ using Newtonsoft.Json.Linq;
 
 public abstract class V3BaseSliderData : V3BeatmapItem
 {
+    protected V3BaseSliderData(IDictionary<string, JToken>? unserializedData, float time, V3NoteColorType colorType,
+        int headLine, int headLayer, NoteCutDirection headCutDirection, float tailBeat, int tailLine, int tailLayer) :
+        base(unserializedData, time)
+    {
+        ColorType = colorType;
+        HeadLine = headLine;
+        HeadLayer = headLayer;
+        HeadCutDirection = headCutDirection;
+        TailBeat = tailBeat;
+        TailLine = tailLine;
+        TailLayer = tailLayer;
+    }
+
     [JsonProperty("c")]
     public V3NoteColorType ColorType { get; set; }
 
-    [JsonProperty("x")]
+    [JsonProperty("x")] 
     public int HeadLine { get; set; }
 
     [JsonProperty("y")]
@@ -24,15 +37,4 @@ public abstract class V3BaseSliderData : V3BeatmapItem
 
     [JsonProperty("ty")]
     public int TailLayer { get; set; }
-
-    protected V3BaseSliderData(IDictionary<string, JToken>? unserializedData, float time, V3NoteColorType colorType, int headLine, int headLayer, NoteCutDirection headCutDirection, float tailBeat, int tailLine, int tailLayer) : base(unserializedData, time)
-    {
-        ColorType = colorType;
-        HeadLine = headLine;
-        HeadLayer = headLayer;
-        HeadCutDirection = headCutDirection;
-        TailBeat = tailBeat;
-        TailLine = tailLine;
-        TailLayer = tailLayer;
-    }
 }

@@ -1,6 +1,6 @@
 ﻿public enum V2BeatmapObjectType
 {
-	Note,
-	Obstacle = 2,
-	Slider
+    Note,
+    Obstacle = 2,
+    Slider
 }

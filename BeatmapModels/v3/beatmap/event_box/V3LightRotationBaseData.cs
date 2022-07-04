@@ -2,44 +2,45 @@
 
 public class V3LightRotationBaseData
 {
-	[JsonProperty("b")]
-	public float Beat { get; set; }
+    public enum RotationDirection
+    {
+        Automatic,
+        Clockwise,
+        Counterclockwise
+    }
 
-	[JsonProperty("e")]
-	public V3EaseType EaseType { get; set; }
+    public V3LightRotationBaseData(float beat, V3EaseType easeType, int loopsCount, float rotation,
+        RotationDirection direction)
+    {
+        Beat = beat;
+        EaseType = easeType;
+        LoopsCount = loopsCount;
+        Rotation = rotation;
+        Direction = direction;
+    }
 
-	[JsonProperty("l")]
-	public int LoopsCount { get; set; }
+    [JsonProperty("b")]
+    public float Beat { get; set; }
 
-	[JsonProperty("r")]
-	public float Rotation { get; set; }
+    [JsonProperty("e")]
+    public V3EaseType EaseType { get; set; }
 
-	[JsonProperty("o")]
-	public RotationDirection Direction { get; set; }
+    [JsonProperty("l")]
+    public int LoopsCount { get; set; }
 
-	[JsonProperty("p")]
-	public int UsePreviousEventRotationValueInt { get; set; }
+    [JsonProperty("r")]
+    public float Rotation { get; set; }
 
-	[JsonIgnore]
-	public bool UsePreviousEventRotationValue
-	{
-		get => UsePreviousEventRotationValueInt == 1;
-		set => UsePreviousEventRotationValueInt = value ? 1 : 0;
-	}
+    [JsonProperty("o")]
+    public RotationDirection Direction { get; set; }
 
-	public enum RotationDirection
-	{
-		Automatic,
-		Clockwise,
-		Counterclockwise
-	}
+    [JsonProperty("p")]
+    public int UsePreviousEventRotationValueInt { get; set; }
 
-	public V3LightRotationBaseData(float beat, V3EaseType easeType, int loopsCount, float rotation, RotationDirection direction)
-	{
-		Beat = beat;
-		EaseType = easeType;
-		LoopsCount = loopsCount;
-		Rotation = rotation;
-		Direction = direction;
-	}
+    [JsonIgnore]
+    public bool UsePreviousEventRotationValue
+    {
+        get => UsePreviousEventRotationValueInt == 1;
+        set => UsePreviousEventRotationValueInt = value ? 1 : 0;
+    }
 }

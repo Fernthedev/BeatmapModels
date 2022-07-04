@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class V3EventCustomData : AbstractV3CustomData, IEventCustomData
 {
-    public V3EventCustomData(IDictionary<string, JToken>? dictionary, Color? color, IReadOnlyList<int>? lightIDs) : base(dictionary)
+    public V3EventCustomData(IDictionary<string, JToken>? dictionary, Color? color, IReadOnlyList<int>? lightIDs) :
+        base(dictionary)
     {
         Color = color;
         LightIDs = lightIDs;
@@ -29,16 +30,8 @@ public class V3EventCustomData : AbstractV3CustomData, IEventCustomData
 
     [JsonProperty("color")]
     [JsonConverter(typeof(ColorConverter))]
-    public Color? Color
-    {
-        get;
-        set;
-    }
+    public Color? Color { get; set; }
 
     [JsonProperty("lightIds")]
-    public IReadOnlyList<int>? LightIDs
-    {
-        get;
-        set;
-    }
+    public IReadOnlyList<int>? LightIDs { get; set; }
 }

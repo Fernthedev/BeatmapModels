@@ -4,7 +4,9 @@ using Newtonsoft.Json.Linq;
 
 public class V3Waypoint : V3BeatmapObject<V3WaypointCustomData>, IWaypoint
 {
-    public V3Waypoint(IDictionary<string, JToken>? unserializedData, float time, V3WaypointCustomData? typedCustomData, int lineIndex, int lineLayer, int offsetDirection) : base(unserializedData, time, typedCustomData, lineIndex, lineLayer)
+    public V3Waypoint(IDictionary<string, JToken>? unserializedData, float time, V3WaypointCustomData? typedCustomData,
+        int lineIndex, int lineLayer, int offsetDirection) : base(unserializedData, time, typedCustomData, lineIndex,
+        lineLayer)
     {
         LineLayer = lineLayer;
         OffsetDirection = offsetDirection;
@@ -18,11 +20,7 @@ public class V3Waypoint : V3BeatmapObject<V3WaypointCustomData>, IWaypoint
 
 
     [JsonProperty("d")]
-    public int OffsetDirection
-    {
-        get;
-        set;
-    }
+    public int OffsetDirection { get; set; }
 
     [JsonIgnore]
     public IObjectCustomData? CustomData

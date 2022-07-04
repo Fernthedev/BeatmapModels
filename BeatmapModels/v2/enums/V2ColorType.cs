@@ -1,6 +1,6 @@
 public enum V2ColorType
 {
-	ColorA,
-	ColorB,
-	None = -1
+    ColorA,
+    ColorB,
+    None = -1
 }

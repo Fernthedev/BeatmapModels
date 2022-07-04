@@ -10,26 +10,26 @@ public static class BeatmapTests
     public static StreamReader V2StreamReader()
     {
         var stream = File.OpenRead("test_maps/FoolishOfMeEPlusLawless.dat");
-        return new StreamReader(stream, new UTF8Encoding());  
+        return new StreamReader(stream, new UTF8Encoding());
     }
-    
+
     public static StreamReader V3StreamReader()
     {
         var stream = File.OpenRead("test_maps/IMY.dat");
-        return new StreamReader(stream, new UTF8Encoding());  
+        return new StreamReader(stream, new UTF8Encoding());
     }
-    
+
     public static V2Beatmap GetTestV2Beatmap(JsonSerializer serializer)
     {
         using var streamReader = V2StreamReader();
         using var jsonReader = new JsonTextReader(streamReader);
-        
+
         return serializer.Deserialize<V2Beatmap>(jsonReader)!;
     }
 
     public static void TestRepeatedV2Deserialization(JsonSerializer serializer)
     {
-        Stopwatch stopwatch = new Stopwatch();
+        var stopwatch = new Stopwatch();
 
         using var streamReader = V2StreamReader();
         using var jsonReader = new JsonTextReader(streamReader);
@@ -48,12 +48,11 @@ public static class BeatmapTests
 
             Console.WriteLine($"Run {i} took: {stopwatch.ElapsedMilliseconds}ms");
         }
-
     }
-    
+
     public static void TestRepeatedV3Deserialization(JsonSerializer serializer)
     {
-        Stopwatch stopwatch = new Stopwatch();
+        var stopwatch = new Stopwatch();
 
         using var streamReader = V3StreamReader();
         using var jsonReader = new JsonTextReader(streamReader);
@@ -72,7 +71,6 @@ public static class BeatmapTests
 
             Console.WriteLine($"Run {i} took: {stopwatch.ElapsedMilliseconds}ms");
         }
-
     }
 
     public static V3Beatmap GetTestV3Beatmap(JsonSerializer serializer)
@@ -80,7 +78,7 @@ public static class BeatmapTests
         using var stream = File.OpenRead("test_maps/IMY.dat");
         using var streamReader = new StreamReader(stream, new UTF8Encoding());
         using var jsonReader = new JsonTextReader(streamReader);
-        
+
         return serializer.Deserialize<V3Beatmap>(jsonReader)!;
     }
 
@@ -108,22 +106,23 @@ public static class BeatmapTests
         Console.WriteLine("Event clone");
         CheckClone(beatmap.BasicEvents.First());
     }
-    
-    public static void CheckClone<T>(T item) where T: IBeatmapItem
+
+    public static void CheckClone<T>(T item) where T : IBeatmapItem
     {
         var clone = item.Clone();
-        
-        if (item.GetType() != clone.GetType()) throw new InvalidOperationException($"Types are not equal {item.GetType()}");
 
-        var tClone = (T) clone;
-        
-        if (Math.Abs(item.Time - tClone.Time) > 0.0001) throw new InvalidOperationException($"Times are not equal {item.GetType()}");
+        if (item.GetType() != clone.GetType())
+            throw new InvalidOperationException($"Types are not equal {item.GetType()}");
+
+        var tClone = (T)clone;
+
+        if (Math.Abs(item.Time - tClone.Time) > 0.0001)
+            throw new InvalidOperationException($"Times are not equal {item.GetType()}");
 
         if (JsonConvert.SerializeObject(item) != JsonConvert.SerializeObject(tClone))
             throw new InvalidOperationException($"Generated json is not identical {item.GetType()}");
-        
     }
-    
+
     public static void CheckMutability(IBeatmap beatmap, StreamReader originalStream, JsonSerializer serializer)
     {
         using var jTokenWriter = new JTokenWriter();
@@ -140,16 +139,16 @@ public static class BeatmapTests
         var original = serializer.Deserialize<JObject>(jsonReader2)!;
 
         var stopwatch = Stopwatch.StartNew();
-        if (!CheckObject(original, parsed))
-        {
-            throw new InvalidOperationException("Beatmap was mutated");
-        }
+        if (!CheckObject(original, parsed)) throw new InvalidOperationException("Beatmap was mutated");
 
         Console.WriteLine(
             $"Deserialized beatmap and serialized beatmap are identical 🎉. Took {stopwatch.ElapsedMilliseconds}ms");
     }
 
-    private static bool IsNumber(JToken token) => token.Type is JTokenType.Float or JTokenType.Integer;
+    private static bool IsNumber(JToken token)
+    {
+        return token.Type is JTokenType.Float or JTokenType.Integer;
+    }
 
     private static bool CheckObject(JToken jToken1, JToken jToken2)
     {
@@ -166,12 +165,11 @@ public static class BeatmapTests
             {
                 var e1 = array1[i];
                 var e2 = array2[i];
-            
+
                 if (!CheckObject(e1, e2)) return false;
             }
 
             return true;
-
         }
 
         // Float subtlety 
@@ -179,15 +177,12 @@ public static class BeatmapTests
         {
             var d1 = jToken1.ToObject<decimal>();
             var d2 = jToken2.ToObject<decimal>();
-            
-            
+
+
             return d1.Equals(d2) || Math.Abs(d1 - d2) < (decimal)0.0001;
         }
 
-        if (jToken1.Type != JTokenType.Object)
-        {
-            return jToken1.Equals(jToken2);
-        }
+        if (jToken1.Type != JTokenType.Object) return jToken1.Equals(jToken2);
 
         var jObject1 = jToken1 as JObject ?? jToken1.ToObject<JObject>()!;
         var jObject2 = jToken2 as JObject ?? jToken2.ToObject<JObject>()!;

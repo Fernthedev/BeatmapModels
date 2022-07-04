@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-
-/// <summary>
+﻿/// <summary>
 ///     Properties could be parsed ahead of time or
 ///     dynamically read
 ///     Proceed with caution

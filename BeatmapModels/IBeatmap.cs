@@ -1,6 +1,4 @@
-﻿
-
-// The amount of interfaces used here feels so wrong
+﻿// The amount of interfaces used here feels so wrong
 // and yet it feels so right
 
 
@@ -10,9 +8,9 @@ public interface IBeatmap : IBeatmapCustomJSON
 {
     string? Version { get; set; }
     public bool UseNormalEventsAsCompatibleEvents { get; set; }
-    
+
     IList<INote> Notes { get; set; }
-    
+
     // On v2 this WILL copy the list with only bombs
     IList<IBomb> Bombs { get; set; }
 
@@ -30,7 +28,7 @@ public interface IBeatmap : IBeatmapCustomJSON
 public interface IBomb : IBeatmapObject
 {
     public int LineLayer { get; set; }
-    
+
     public INoteCustomData? CustomData { get; set; }
 }
 

@@ -1,6 +1,6 @@
 ﻿public enum V2NoteLineLayer
 {
-	Base,
-	Upper,
-	Top
+    Base,
+    Upper,
+    Top
 }

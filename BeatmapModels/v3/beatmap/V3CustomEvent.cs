@@ -4,7 +4,8 @@ using Newtonsoft.Json.Linq;
 
 public class V3CustomEvent : V3CustomBeatmapItem<V3CustomEventCustomData>, ICustomEvent
 {
-    public V3CustomEvent(IDictionary<string, JToken>? unserializedData, float time, V3CustomEventCustomData? typedCustomData, string type) : base(unserializedData, time, typedCustomData)
+    public V3CustomEvent(IDictionary<string, JToken>? unserializedData, float time,
+        V3CustomEventCustomData? typedCustomData, string type) : base(unserializedData, time, typedCustomData)
     {
         Type = type;
     }
@@ -16,11 +17,7 @@ public class V3CustomEvent : V3CustomBeatmapItem<V3CustomEventCustomData>, ICust
     }
 
     [JsonProperty("_type")]
-    public string Type
-    {
-        get;
-        set;
-    }
+    public string Type { get; set; }
 
     [JsonIgnore]
     public ICustomEventCustomData? CustomData

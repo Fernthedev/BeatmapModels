@@ -3,6 +3,20 @@ using Newtonsoft.Json;
 
 public class V3LightRotationEventBox : V3EventBox
 {
+    public V3LightRotationEventBox(V3IndexFilter indexFilter, float beatDistributionParam,
+        DistributionParamType beatDistributionParamType, float rotationDistributionParam,
+        DistributionParamType rotationDistributionParamType, V3Axis axis, bool flipRotation,
+        bool rotationDistributionShouldAffectFirstBaseEvent, IList<V3LightRotationBaseData> lightRotationBaseDataList) :
+        base(indexFilter, beatDistributionParam, beatDistributionParamType)
+    {
+        RotationDistributionParam = rotationDistributionParam;
+        RotationDistributionParamType = rotationDistributionParamType;
+        Axis = axis;
+        FlipRotation = flipRotation;
+        RotationDistributionShouldAffectFirstBaseEvent = rotationDistributionShouldAffectFirstBaseEvent;
+        LightRotationBaseDataList = lightRotationBaseDataList;
+    }
+
     [JsonProperty("s")]
     public float RotationDistributionParam { get; set; }
 
@@ -16,7 +30,8 @@ public class V3LightRotationEventBox : V3EventBox
     public int FlipRotationInt { get; set; }
 
     [JsonIgnore]
-    public bool FlipRotation {
+    public bool FlipRotation
+    {
         get => FlipRotationInt == 1;
         set => FlipRotationInt = value ? 1 : 0;
     }
@@ -25,7 +40,8 @@ public class V3LightRotationEventBox : V3EventBox
     public int RotationDistributionShouldAffectFirstBaseEventInt { get; set; }
 
     [JsonIgnore]
-    public bool RotationDistributionShouldAffectFirstBaseEvent {
+    public bool RotationDistributionShouldAffectFirstBaseEvent
+    {
         get => RotationDistributionShouldAffectFirstBaseEventInt == 1;
         set => RotationDistributionShouldAffectFirstBaseEventInt = value ? 1 : 0;
     }
@@ -33,14 +49,4 @@ public class V3LightRotationEventBox : V3EventBox
 
     [JsonProperty("l")]
     public IList<V3LightRotationBaseData> LightRotationBaseDataList { get; set; }
-
-    public V3LightRotationEventBox(V3IndexFilter indexFilter, float beatDistributionParam, DistributionParamType beatDistributionParamType, float rotationDistributionParam, DistributionParamType rotationDistributionParamType, V3Axis axis, bool flipRotation, bool rotationDistributionShouldAffectFirstBaseEvent, IList<V3LightRotationBaseData> lightRotationBaseDataList) : base(indexFilter, beatDistributionParam, beatDistributionParamType)
-    {
-        RotationDistributionParam = rotationDistributionParam;
-        RotationDistributionParamType = rotationDistributionParamType;
-        Axis = axis;
-        FlipRotation = flipRotation;
-        RotationDistributionShouldAffectFirstBaseEvent = rotationDistributionShouldAffectFirstBaseEvent;
-        LightRotationBaseDataList = lightRotationBaseDataList;
-    }
 }

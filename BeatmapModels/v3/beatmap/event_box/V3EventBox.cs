@@ -5,6 +5,20 @@ using Newtonsoft.Json.Linq;
 
 public abstract class V3EventBox
 {
+    public enum DistributionParamType
+    {
+        Wave = 1,
+        Step
+    }
+
+    protected V3EventBox(V3IndexFilter indexFilter, float beatDistributionParam,
+        DistributionParamType beatDistributionParamType)
+    {
+        IndexFilter = indexFilter;
+        BeatDistributionParam = beatDistributionParam;
+        BeatDistributionParamType = beatDistributionParamType;
+    }
+
     [JsonProperty("f")]
     public V3IndexFilter IndexFilter { get; set; }
 
@@ -13,24 +27,12 @@ public abstract class V3EventBox
 
     [JsonProperty("d")]
     public DistributionParamType BeatDistributionParamType { get; set; }
-
-    protected V3EventBox(V3IndexFilter indexFilter, float beatDistributionParam, DistributionParamType beatDistributionParamType)
-    {
-        IndexFilter = indexFilter;
-        BeatDistributionParam = beatDistributionParam;
-        BeatDistributionParamType = beatDistributionParamType;
-    }
-
-    public enum DistributionParamType
-    {
-        Wave = 1,
-        Step
-    }
 }
 
 public abstract class V3EventBoxGroup : V3BeatmapItem
 {
-    protected V3EventBoxGroup(IDictionary<string, JToken>? unserializedData, float time, int groupId) : base(unserializedData, time)
+    protected V3EventBoxGroup(IDictionary<string, JToken>? unserializedData, float time, int groupId) : base(
+        unserializedData, time)
     {
         GroupId = groupId;
     }
@@ -44,7 +46,8 @@ public abstract class V3EventBoxGroup : V3BeatmapItem
 
 public abstract class V3EventBoxGroup<T> : V3EventBoxGroup where T : V3EventBox
 {
-    public V3EventBoxGroup(IDictionary<string, JToken>? unserializedData, float time, int groupId, IList<T> eventBoxes) : base(unserializedData, time, groupId)
+    public V3EventBoxGroup(IDictionary<string, JToken>? unserializedData, float time, int groupId, IList<T> eventBoxes)
+        : base(unserializedData, time, groupId)
     {
         EventBoxes = eventBoxes;
     }
@@ -58,7 +61,8 @@ public abstract class V3EventBoxGroup<T> : V3EventBoxGroup where T : V3EventBox
 
 public class V3LightColorEventBoxGroup : V3EventBoxGroup<V3LightColorEventBox>
 {
-    public V3LightColorEventBoxGroup(IDictionary<string, JToken>? unserializedData, float time, int groupId, IList<V3LightColorEventBox> eventBoxes) : base(unserializedData, time, groupId, eventBoxes)
+    public V3LightColorEventBoxGroup(IDictionary<string, JToken>? unserializedData, float time, int groupId,
+        IList<V3LightColorEventBox> eventBoxes) : base(unserializedData, time, groupId, eventBoxes)
     {
     }
 
@@ -70,7 +74,8 @@ public class V3LightColorEventBoxGroup : V3EventBoxGroup<V3LightColorEventBox>
 
 public class V3LightRotationEventBoxGroup : V3EventBoxGroup<V3LightRotationEventBox>
 {
-    public V3LightRotationEventBoxGroup(IDictionary<string, JToken>? unserializedData, float time, int groupId, IList<V3LightRotationEventBox> eventBoxes) : base(unserializedData, time, groupId, eventBoxes)
+    public V3LightRotationEventBoxGroup(IDictionary<string, JToken>? unserializedData, float time, int groupId,
+        IList<V3LightRotationEventBox> eventBoxes) : base(unserializedData, time, groupId, eventBoxes)
     {
     }
 

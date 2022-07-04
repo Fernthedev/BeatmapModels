@@ -33,7 +33,7 @@ public abstract class V2CustomBeatmapItem<T> : V2BeatmapItem, ICustomBeatmapItem
         TypedCustomData = typedCustomData;
     }
 
-    [JsonProperty("_customData")] 
+    [JsonProperty("_customData")]
     protected T? TypedCustomData { get; set; }
 
     [JsonIgnore]

@@ -4,13 +4,14 @@ using Newtonsoft.Json.Linq;
 
 public class V3BpmChangeEventData : V3CustomBeatmapItem
 {
-    public V3BpmChangeEventData(IDictionary<string, JToken>? unserializedData, float time, ICustomData? untypedCustomData, float bpm) : base(unserializedData, time, untypedCustomData)
+    public V3BpmChangeEventData(IDictionary<string, JToken>? unserializedData, float time,
+        ICustomData? untypedCustomData, float bpm) : base(unserializedData, time, untypedCustomData)
     {
         Bpm = bpm;
     }
 
 
-    [JsonProperty("m")] 
+    [JsonProperty("m")]
     public float Bpm { get; set; }
 
     public override IBeatmapJSON Clone()

@@ -4,12 +4,17 @@ using Newtonsoft.Json.Linq;
 
 public class V3Obstacle : V3BeatmapObject<V3ObstacleCustomData>, IObstacle
 {
-    public V3Obstacle(IDictionary<string, JToken>? unserializedData, float time, V3ObstacleCustomData? typedCustomData, int lineIndex, int lineLayer, float duration, int width, int height) : base(unserializedData, time, typedCustomData, lineIndex, lineLayer)
+    public V3Obstacle(IDictionary<string, JToken>? unserializedData, float time, V3ObstacleCustomData? typedCustomData,
+        int lineIndex, int lineLayer, float duration, int width, int height) : base(unserializedData, time,
+        typedCustomData, lineIndex, lineLayer)
     {
         Duration = duration;
         Width = width;
         Height = height;
     }
+
+    [JsonProperty("h")]
+    public int Height { get; set; }
 
     public override IBeatmapJSON Clone()
     {
@@ -26,22 +31,11 @@ public class V3Obstacle : V3BeatmapObject<V3ObstacleCustomData>, IObstacle
     }
 
     [JsonProperty("d")]
-    public float Duration
-    {
-        get;
-        set;
-    }
+    public float Duration { get; set; }
 
 
     [JsonProperty("w")]
-    public int Width
-    {
-        get;
-        set;
-    }
-    
-    [JsonProperty("h")]
-    public int Height { get; set; }
+    public int Width { get; set; }
 
     [JsonIgnore]
     public IObstacleCustomData? CustomData

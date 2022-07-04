@@ -9,17 +9,13 @@ public abstract class AbstractCustomData : ICustomData
         UnserializedData = dictionary ?? new Dictionary<string, JToken>();
     }
 
-    [JsonIgnore] 
+    [JsonIgnore]
     public abstract bool isV3 { get; }
 
     public abstract IBeatmapJSON Clone();
 
     [JsonExtensionData]
-    public IDictionary<string, JToken> UnserializedData
-    {
-        get;
-        set;
-    }
+    public IDictionary<string, JToken> UnserializedData { get; set; }
 
     public abstract ICustomData ShallowClone();
 

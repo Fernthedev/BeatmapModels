@@ -1,6 +1,6 @@
 ﻿public enum V3TransitionType
 {
-	Instant,
-	Interpolate,
-	Extend
+    Instant,
+    Interpolate,
+    Extend
 }
